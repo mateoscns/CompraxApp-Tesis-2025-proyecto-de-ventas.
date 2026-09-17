@@ -1,0 +1,30 @@
+<div class="success-container">
+  <div class="success-card">
+    <div class="success-icon"></div>
+    
+    <h1 class="success-title">¡Pago exitoso!</h1>
+    <p class="success-message">Tu orden ha sido procesada correctamente</p>
+    
+    <div class="order-info" *ngIf="orderId">
+      <div class="order-detail">
+        <span class="detail-label">Número de orden</span>
+        <span class="detail-value">#{{ orderId }}</span>
+      </div>
+      <div class="order-detail" *ngIf="paymentMethod">
+        <span class="detail-label">Método de pago</span>
+        <span class="detail-value">{{ paymentMethod === 'whatsapp' ? 'WhatsApp' : paymentMethod }}</span>
+      </div>
+    </div>
+
+    <div class="success-actions">
+      <button class="btn btn-primary" (click)="goToOrders()">
+        <i class="fas fa-box"></i>
+        Ver mis pedidos
+      </button>
+      <button class="btn btn-secondary" (click)="goToHome()">
+        <i class="fas fa-shopping-bag"></i>
+        Seguir comprando
+      </button>
+    </div>
+  </div>
+</div>

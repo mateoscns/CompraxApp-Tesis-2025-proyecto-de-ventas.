@@ -1,0 +1,87 @@
+<div class="admin-orders">
+  <div class="header">
+    <h1>Order Management</h1>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters">
+    <div class="filter-group">
+      <select [(ngModel)]="selectedStatus" class="filter-select">
+        <option *ngFor="let status of orderStatuses" [value]="status.value">
+          {{ status.label }}
+        </option>
+      </select>
+      
+      <input 
+        type="text" 
+        [(ngModel)]="searchKeyword" 
+        placeholder="Search orders..."
+        class="filter-input">
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    Loading orders...
+  </div>
+
+  <div *ngIf="!isLoading" class="orders-content">
+    <div *ngIf="orders.length === 0" class="no-orders">
+      <p>No orders found.</p>
+    </div>
+
+    <div *ngIf="orders.length > 0" class="orders-grid">
+      <div *ngFor="let order of filteredOrders" class="order-card">
+        <div class="order-header">
+          <div class="order-id">Order #{{ order.id }}</div>
+          <div class="order-status">
+            <select 
+              [value]="order.status" 
+              (change)="updateOrderStatus(order, $any($event.target).value)"
+              [class]="'status-select ' + getStatusClass(order.status)">
+              <!-- ✅ FIX: Estados exactos del backend -->
+              <option value="PENDING">Pending</option>
+              <option value="PROCESSING">Processing</option>
+              <option value="COMPLETED">Completed</option>
+              <option value="CANCELLED">Cancelled</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="order-details">
+          <div class="detail-row">
+            <span class="label">Customer:</span>
+            <span class="value">{{ order.userName || 'N/A' }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Total:</span>
+            <span class="value amount">{{ order.totalAmount | currency:'USD':'symbol' }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Items:</span>
+            <span class="value">{{ getTotalItems(order) }} items</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Date:</span>
+            <span class="value">{{ order.orderDate | date:'medium' }}</span>
+          </div>
+        </div>
+
+        <div class="shipping-address">
+          <strong>Shipping Address:</strong>
+          <p>{{ order.shippingAddress || 'No address provided' }}</p>
+        </div>
+
+        <div class="order-items">
+          <strong>Items:</strong>
+          <div class="items-list">
+            <div *ngFor="let item of order.items" class="item-row">
+              <span>{{ item.productName }}</span>
+              <span>x{{ item.quantity }}</span>
+              <span>{{ item.price | currency:'USD':'symbol' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

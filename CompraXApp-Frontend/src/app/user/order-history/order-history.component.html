@@ -1,0 +1,106 @@
+<div class="order-history-container">
+  <div class="page-header">
+    <h1>My Order History</h1>
+    <p>Review all your previous purchases</p>
+  </div>
+
+  <!-- Messages -->
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-error">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading your order history...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error && !loading" class="error-state">
+    <div class="error-icon">⚠️</div>
+    <h3>Error loading orders</h3>
+    <p>{{ error }}</p>
+    <button class="btn btn-primary" (click)="loadOrders()">Retry</button>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && !error && orders.length === 0" class="empty-state">
+    <div class="empty-icon">📦</div>
+    <h3>You have no orders yet</h3>
+    <p>When you make a purchase, it will appear here</p>
+    <button class="btn btn-primary" (click)="router.navigate(['/products'])">Explore Products</button>
+  </div>
+
+  <!-- Orders List -->
+  <div *ngIf="!loading && !error && orders.length > 0" class="orders-list">
+    <div *ngFor="let order of orders; trackBy: trackByOrderId" class="order-card">
+      <div class="order-header">
+        <div class="order-info">
+          <h3>Order #{{ order.id }}</h3>
+          <p class="order-date">{{ order.orderDate | date:'medium' }}</p>
+        </div>
+        <div class="order-status">
+          <span class="status-badge" [class]="'status-' + getStatusColor(order.status)">
+            {{ getStatusText(order.status) }}
+          </span>
+        </div>
+      </div>
+
+      <div class="order-details">
+        <div class="order-items">
+          <h4>Products ({{ order.items.length }})</h4>
+          <div class="items-list">
+            <div *ngFor="let item of order.items; trackBy: trackByItemId" class="item">
+              <div class="item-main-info">
+                <span class="item-name">{{ item.productName }}</span>
+                <span class="item-quantity">x{{ getItemQuantity(item) }}</span>
+              </div>
+              <div class="item-pricing">
+                <span class="item-total">${{ getItemTotal(item) | number:'1.2-2' }}</span>
+              </div>
+            </div>
+            <div *ngIf="order.items.length === 0" class="no-items">
+              No items found
+            </div>
+          </div>
+        </div>
+
+        <div class="order-summary">
+          <div class="summary-row">
+            <span>Shipping Status:</span>
+            <span>{{ getShippingStatusText(order.shippingStatus) }}</span>
+          </div>
+          <div *ngIf="order.trackingNumber" class="summary-row">
+            <span>Tracking:</span>
+            <span>{{ order.trackingNumber }}</span>
+          </div>
+          <div class="summary-row total">
+            <span>Total:</span>
+            <span>${{ order.totalAmount | number:'1.2-2' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-actions">
+        <button class="btn btn-outline" (click)="viewOrderDetails(order.id)">
+          👁️ View Details
+        </button>
+        
+       
+      
+        
+        <button 
+          class="btn btn-success" 
+          (click)="downloadReceipt(order.id)"
+          [disabled]="order.status === 'CANCELLED'"
+          title="Descargar comprobante">
+          📥 Download PDF
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

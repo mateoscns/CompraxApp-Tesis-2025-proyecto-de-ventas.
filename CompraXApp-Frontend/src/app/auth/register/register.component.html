@@ -1,0 +1,80 @@
+<div class="auth-wrapper">
+  <div class="register-container">
+    <h2>Create Your Account</h2>
+    
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">First Name *</label>
+          <input 
+            type="text" 
+            id="firstName" 
+            formControlName="firstName"
+            placeholder="John"
+            autocomplete="given-name"
+            [class.error]="isFieldInvalid('firstName')">
+          <div *ngIf="isFieldInvalid('firstName')">
+            <small>{{ getFieldError('firstName') }}</small>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input 
+            type="text" 
+            id="lastName" 
+            formControlName="lastName"
+            placeholder="Doe"
+            autocomplete="family-name">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email Address *</label>
+        <input 
+          type="email" 
+          id="email" 
+          formControlName="email"
+          placeholder="john@example.com"
+          autocomplete="email"
+          [class.error]="isFieldInvalid('email')">
+        <div *ngIf="isFieldInvalid('email')">
+          <small>{{ getFieldError('email') }}</small>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password *</label>
+        <input 
+          type="password" 
+          id="password" 
+          formControlName="password"
+          placeholder="Minimum 6 characters"
+          autocomplete="new-password"
+          [class.error]="isFieldInvalid('password')">
+        <div *ngIf="isFieldInvalid('password')">
+          <small>{{ getFieldError('password') }}</small>
+        </div>
+      </div>
+      
+      <button 
+        type="submit" 
+        [disabled]="registerForm.invalid || loading"
+        [class.loading]="loading">
+        <span *ngIf="!loading">Create Account</span>
+        <span *ngIf="loading">Creating account...</span>
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p>
+        Already have an account? 
+        <a routerLink="/auth/login" class="auth-link">Sign in here</a>
+      </p>
+    </div>
+  </div>
+</div>

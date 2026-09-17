@@ -1,0 +1,289 @@
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+  padding: var(--spacing-4);
+}
+
+.login-container {
+  max-width: 400px;
+  width: 100%;
+  padding: var(--spacing-8);
+  background: white;
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--gray-200);
+}
+
+.login-container h2 {
+  text-align: center;
+  color: var(--gray-900);
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  margin-bottom: var(--spacing-8);
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.login-container label {
+  font-weight: 600;
+  color: var(--gray-700);
+  font-size: var(--font-size-sm);
+}
+
+.login-container input {
+  padding: var(--spacing-3) var(--spacing-4);
+  border: 2px solid var(--gray-300);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-base);
+  transition: all var(--transition-fast);
+  background: white;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 44px;
+}
+
+.login-container input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  transform: translateY(-1px);
+}
+
+.login-container input:hover:not(:focus) {
+  border-color: var(--gray-400);
+}
+
+.login-container input.error {
+  border-color: var(--danger-color);
+  background-color: #fef2f2;
+}
+
+.login-container small {
+  color: var(--danger-color);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+}
+
+.login-container button {
+  padding: var(--spacing-4) var(--spacing-6);
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+  margin-top: var(--spacing-4);
+  min-height: 48px;
+}
+
+.login-container button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.login-container button:disabled {
+  background: var(--gray-400);
+  cursor: not-allowed;
+  transform: none;
+  opacity: 0.7;
+}
+
+.login-container button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.error-message {
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  padding: var(--spacing-3);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-4);
+  text-align: center;
+}
+
+/* ✅ FIX: Auth footer styles */
+.auth-footer {
+  text-align: center;
+  margin-top: var(--spacing-6);
+  padding-top: var(--spacing-4);
+  border-top: 1px solid var(--gray-200);
+}
+
+.auth-footer p {
+  color: var(--gray-600);
+  font-size: var(--font-size-sm);
+  margin: 0;
+}
+
+/* ✅ FIX: Auth link styles with proper clickability */
+.auth-link {
+  color: var(--primary-color);
+  text-decoration: underline;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: inline;
+  position: relative;
+  z-index: 100;
+}
+
+.auth-link:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+  transform: translateY(-1px);
+}
+
+.auth-link:active {
+  color: var(--primary-darker);
+  transform: translateY(0);
+}
+
+.auth-link:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ✅ HIDE: One of the duplicate links */
+.auth-footer a.auth-link {
+  display: inline;
+}
+
+.auth-footer span.auth-link {
+  display: none;
+}
+
+/* ✅ FALLBACK: Show span if routerLink fails */
+.auth-footer a.auth-link:not([href]) {
+  display: none;
+}
+
+.auth-footer a.auth-link:not([href]) + span.auth-link {
+  display: inline;
+}
+
+/* Loading state */
+.login-container button.loading {
+  pointer-events: none;
+}
+
+.login-container button.loading::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  margin: auto;
+  border: 2px solid transparent;
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Forgot password link */
+.forgot-password-link {
+  text-align: center;
+  margin-top: var(--spacing-4);
+}
+
+.forgot-password-link a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.forgot-password-link a:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+/* Password toggle */
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-wrapper input {
+  flex: 1;
+  padding-right: 45px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  color: var(--gray-400);
+  transition: color var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-password:hover {
+  color: var(--gray-600);
+}
+
+.toggle-password svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .auth-wrapper {
+    padding: var(--spacing-2);
+  }
+  
+  .login-container {
+    padding: var(--spacing-6);
+  }
+  
+  .login-container input {
+    font-size: 16px; /* Prevent zoom on iOS */
+    padding: var(--spacing-4);
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: var(--spacing-4);
+  }
+  
+  .login-container h2 {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-6);
+  }
+}

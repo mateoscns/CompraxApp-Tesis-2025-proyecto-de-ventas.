@@ -1,0 +1,70 @@
+<div class="payment-failure-container">
+  <div class="failure-card">
+    <div class="failure-icon">
+      <i class="fas fa-times-circle"></i>
+    </div>
+    <h1>Oops! Something went wrong with your payment</h1>
+    <p class="failure-message">
+      We couldn't process your payment at this time. 
+      Please try again or use a different payment method.
+    </p>
+
+    <div class="transaction-details" *ngIf="transactionDetails">
+      <h3>Transaction Details</h3>
+      <div class="detail-item">
+        <strong>Transaction ID:</strong> {{ transactionDetails.transactionId || 'N/A' }}
+      </div>
+      <div class="detail-item">
+        <strong>Amount:</strong> ${{ transactionDetails.amount | number:'1.2-2' }}
+      </div>
+      <div class="detail-item">
+        <strong>Date:</strong> {{ transactionDetails.date | date:'medium' }}
+      </div>
+      <div class="detail-item" *ngIf="transactionDetails.reason">
+        <strong>Reason for failure:</strong> {{ transactionDetails.reason }}
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary" (click)="retryPayment()">
+        <i class="fas fa-redo"></i>
+        Retry Payment
+      </button>
+      <button class="btn btn-secondary" (click)="chooseAnotherMethod()">
+        <i class="fas fa-exchange-alt"></i>
+        Choose Another Payment Method
+      </button>
+      <button class="btn btn-outline" (click)="backToCart()">
+        <i class="fas fa-shopping-cart"></i>
+        Back to Cart
+      </button>
+    </div>
+
+    <div class="secondary-actions">
+      <button class="btn btn-link" (click)="contactSupport()">
+        <i class="fas fa-headset"></i>
+        Contact Support
+      </button>
+      
+      <button class="btn btn-link" (click)="goToHome()">
+        <i class="fas fa-home"></i>
+        Go to Homepage
+      </button>
+    </div>
+  </div>
+
+  <div class="help-section">
+    <h3>Need Help?</h3>
+    <p>If the problem persists, please don't hesitate to contact us:</p>
+    <div class="contact-methods">
+      <div class="contact-item">
+        <i class="fas fa-envelope"></i>
+        <span>compraxapp&#64;gmail.com</span>
+      </div>
+      <div class="contact-item">
+        <i class="fas fa-phone"></i>
+        <span>+1-555-HELP-NOW</span> <!-- Generic Phone Number -->
+      </div>
+    </div>
+  </div>
+</div>

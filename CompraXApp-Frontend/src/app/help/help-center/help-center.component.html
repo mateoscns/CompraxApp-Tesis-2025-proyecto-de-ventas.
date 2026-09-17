@@ -1,0 +1,169 @@
+<div class="help-center">
+  <!-- Hero Section -->
+  <div class="help-header">
+    <div class="help-hero">
+      <h1>📚 Help Center</h1>
+      <p>Find answers to your questions and get the help you need</p>
+      
+      <!-- Search Bar -->
+      <div class="search-container">
+        <div class="search-box">
+          <input 
+            type="text" 
+            [(ngModel)]="searchQuery" 
+            placeholder="Search for help articles, FAQs, guides..."
+            class="search-input">
+          <button class="search-btn">🔍</button>
+        </div>
+        <button *ngIf="searchQuery || selectedCategory" (click)="clearSearch()" class="clear-btn">
+          Clear Search
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="help-content">
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <h2>Quick Actions</h2>
+      <div class="action-cards">
+        <a routerLink="/contact" class="action-card">
+          <span class="action-icon">📧</span>
+          <h3>Contact Support</h3>
+          <p>Get in touch with our support team</p>
+        </a>
+        
+        <a routerLink="/manual" class="action-card">
+          <span class="action-icon">📖</span>
+          <h3>User Manual</h3>
+          <p>Complete guide to using CompraXApp</p>
+        </a>
+        
+        <a routerLink="/terms" class="action-card">
+          <span class="action-icon">📋</span>
+          <h3>Terms of Service</h3>
+          <p>Read our terms and conditions</p>
+        </a>
+        
+        <a routerLink="/privacy" class="action-card">
+          <span class="action-icon">🔒</span>
+          <h3>Privacy Policy</h3>
+          <p>Learn about our privacy practices</p>
+        </a>
+      </div>
+    </div>
+
+    <!-- Categories -->
+    <div class="categories-section">
+      <h2>Browse by Category</h2>
+      <div class="categories-grid">
+        <div 
+          *ngFor="let category of categories" 
+          class="category-card"
+          [class.active]="selectedCategory === category.id"
+          (click)="selectCategory(category.id)">
+          <span class="category-icon">{{ category.icon }}</span>
+          <h3>{{ category.name }}</h3>
+          <p>{{ category.count }} articles</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Popular FAQs -->
+    <div class="popular-faqs" *ngIf="!selectedCategory && !searchQuery">
+      <h2>🔥 Popular Questions</h2>
+      <div class="faq-list">
+        <div *ngFor="let faq of popularFAQs" class="faq-item">
+          <div class="faq-question">
+            <h3>{{ faq.question }}</h3>
+            <span class="popular-badge">Popular</span>
+          </div>
+          <div class="faq-answer">
+            <p>{{ faq.answer }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Results / Filtered FAQs -->
+    <div class="search-results" *ngIf="selectedCategory || searchQuery">
+      <div class="results-header">
+        <h2>
+          <span *ngIf="searchQuery">Search Results for "{{ searchQuery }}"</span>
+          <span *ngIf="selectedCategory && !searchQuery">
+            {{ selectedCategoryName }} Questions
+          </span>
+        </h2>
+        <p>{{ filteredFAQs.length }} results found</p>
+      </div>
+      
+      <div class="faq-list" *ngIf="filteredFAQs.length > 0">
+        <div *ngFor="let faq of filteredFAQs" class="faq-item">
+          <div class="faq-question">
+            <h3>{{ faq.question }}</h3>
+            <span *ngIf="faq.popular" class="popular-badge">Popular</span>
+          </div>
+          <div class="faq-answer">
+            <p>{{ faq.answer }}</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="no-results" *ngIf="filteredFAQs.length === 0">
+        <div class="no-results-content">
+          <span class="no-results-icon">🔍</span>
+          <h3>No results found</h3>
+          <p>Try adjusting your search terms or browse our categories above.</p>
+          <button (click)="clearSearch()" class="btn btn-primary">Clear Search</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Support -->
+    <div class="support-section">
+      <div class="support-card">
+        <div class="support-content">
+          <h2>Still need help?</h2>
+          <p>Can't find what you're looking for? Our support team is here to help!</p>
+          <div class="support-actions">
+            <a routerLink="/contact" class="btn btn-primary">Contact Support</a>
+            <a href="mailto:support@compraxapp.com" class="btn btn-outline">Send Email</a>
+          </div>
+        </div>
+        <div class="support-illustration">
+          <span class="support-icon">🎧</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Resources -->
+    <div class="resources-section">
+      <h2>Additional Resources</h2>
+      <div class="resources-grid">
+        <div class="resource-item">
+          <span class="resource-icon">💡</span>
+          <h3>Tips & Tricks</h3>
+          <p>Learn helpful tips to make the most of CompraXApp</p>
+        </div>
+        
+        <div class="resource-item">
+          <span class="resource-icon">🎯</span>
+          <h3>Best Practices</h3>
+          <p>Recommended practices for a better shopping experience</p>
+        </div>
+        
+        <div class="resource-item">
+          <span class="resource-icon">🔄</span>
+          <h3>Updates & News</h3>
+          <p>Stay informed about new features and improvements</p>
+        </div>
+        
+        <div class="resource-item">
+          <span class="resource-icon">🏆</span>
+          <h3>Success Stories</h3>
+          <p>Read how other customers are using CompraXApp</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

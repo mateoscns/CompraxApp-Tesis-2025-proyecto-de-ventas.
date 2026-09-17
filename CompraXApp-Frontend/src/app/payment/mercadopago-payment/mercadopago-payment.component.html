@@ -1,0 +1,157 @@
+<div class="payment-page mercadopago">
+  <!-- Progress Steps -->
+  <div class="progress-steps">
+    <div class="step completed">
+      <div class="step-number">✓</div>
+      <span class="step-label">Cart</span>
+    </div>
+    <div class="step-line completed"></div>
+    <div class="step completed">
+      <div class="step-number">✓</div>
+      <span class="step-label">Shipping</span>
+    </div>
+    <div class="step-line completed"></div>
+    <div class="step completed">
+      <div class="step-number">✓</div>
+      <span class="step-label">Payment</span>
+    </div>
+    <div class="step-line active"></div>
+    <div class="step active">
+      <div class="step-number">4</div>
+      <span class="step-label">Confirm</span>
+    </div>
+  </div>
+
+  <div class="payment-layout">
+    <!-- Main Content -->
+    <div class="payment-main">
+      <div class="payment-card">
+        <!-- Header -->
+        <div class="card-header mercadopago-gradient">
+          <div class="header-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+            </svg>
+          </div>
+          <div class="header-text">
+            <h1>MercadoPago</h1>
+            <p>Secure online payment</p>
+          </div>
+          <div class="header-badges">
+            <span class="badge-item">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+              </svg>
+              Secure
+            </span>
+            <span class="badge-item">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+              </svg>
+              Instant
+            </span>
+          </div>
+        </div>
+
+        <!-- Payment Content -->
+        <div class="card-content" *ngIf="!loading && !error">
+          <div class="info-box">
+            <div class="info-icon">ℹ️</div>
+            <div class="info-text">
+              <strong>How it works</strong>
+              <p>Click the button below to be redirected to MercadoPago's secure payment page. Complete your payment there and you'll be redirected back.</p>
+            </div>
+          </div>
+
+          <div class="payment-methods-preview">
+            <span class="method-label">Accepted payment methods:</span>
+            <div class="methods-icons">
+              <div class="method-icon" title="Credit Card">💳</div>
+              <div class="method-icon" title="Debit Card">🏧</div>
+              <div class="method-icon" title="Bank Transfer">🏦</div>
+              <div class="method-icon" title="MercadoPago Wallet">📱</div>
+            </div>
+          </div>
+
+          <button class="btn-pay mercadopago-btn" (click)="processMercadoPagoPayment()">
+            <span class="btn-content">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="btn-icon">
+                <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+              </svg>
+              Pay ${{ orderData.total | number:'1.2-2' }}
+            </span>
+            <span class="btn-subtext">via MercadoPago</span>
+          </button>
+
+          <div class="security-footer">
+            <div class="security-item">
+              <span class="security-icon">🔒</span>
+              <span>256-bit SSL encryption</span>
+            </div>
+            <div class="security-item">
+              <span class="security-icon">🛡️</span>
+              <span>Buyer protection</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Loading State -->
+        <div class="card-content loading-content" *ngIf="loading">
+          <div class="loading-spinner">
+            <div class="spinner"></div>
+          </div>
+          <h3>Processing your payment...</h3>
+          <p>Please wait while we redirect you to MercadoPago</p>
+        </div>
+
+        <!-- Error State -->
+        <div class="card-content error-content" *ngIf="error">
+          <div class="error-icon">⚠️</div>
+          <h3>Payment Error</h3>
+          <p>{{ error }}</p>
+          <button class="btn-retry" (click)="processMercadoPagoPayment()">
+            Try Again
+          </button>
+        </div>
+      </div>
+
+      <!-- Back Button -->
+      <button class="btn-back" (click)="goBack()" [disabled]="loading">
+        ← Back to Payment Methods
+      </button>
+    </div>
+
+    <!-- Order Summary Sidebar -->
+    <div class="order-sidebar">
+      <div class="sidebar-card">
+        <h3>Order Summary</h3>
+        
+        <div class="sidebar-items">
+          <div class="sidebar-item" *ngFor="let item of orderData.items">
+            <div class="item-details">
+              <span class="item-name">{{ item.productName }}</span>
+              <span class="item-qty">× {{ item.quantity }}</span>
+            </div>
+            <span class="item-price">${{ (item.pricePerUnit * item.quantity) | number:'1.2-2' }}</span>
+          </div>
+        </div>
+
+        <div class="sidebar-divider"></div>
+
+        <div class="sidebar-row">
+          <span>Subtotal</span>
+          <span>${{ orderData.total | number:'1.2-2' }}</span>
+        </div>
+
+        
+
+        <div class="sidebar-divider"></div>
+
+        <div class="sidebar-total">
+          <span>Total</span>
+          <span class="total-price">${{ orderData.total | number:'1.2-2' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

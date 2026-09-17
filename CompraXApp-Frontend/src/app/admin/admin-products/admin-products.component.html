@@ -1,0 +1,187 @@
+<div class="admin-products">
+  <!-- Header -->
+  <div class="header">
+    <h1>📦 Product Management</h1>
+    <a routerLink="/admin/products/create" class="create-btn">
+      <span>+</span> Create New Product
+    </a>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters">
+    <div class="filter-group">
+      <input 
+        type="text" 
+        [(ngModel)]="searchKeyword" 
+        placeholder="Search products..."
+        class="filter-input">
+      
+      <input 
+        type="number" 
+        [(ngModel)]="minPrice" 
+        placeholder="Min Price"
+        class="filter-input price-input">
+      
+      <input 
+        type="number" 
+        [(ngModel)]="maxPrice" 
+        placeholder="Max Price"
+        class="filter-input price-input">
+      
+      <button (click)="applyFilters()" class="filter-btn">🔍 Search</button>
+      <button (click)="clearFilters()" class="clear-btn">🗑️ Clear</button>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner"></div>
+    <span>Loading products...</span>
+  </div>
+
+  <!-- Content -->
+  <div *ngIf="!isLoading" class="products-content">
+    <!-- Empty State -->
+    <div *ngIf="products.length === 0" class="empty-state">
+      <div class="empty-icon">📦</div>
+      <h3>No products found</h3>
+      <p>Start by creating your first product!</p>
+      <a routerLink="/admin/products/create" class="create-btn">+ Create New Product</a>
+    </div>
+
+    <!-- Products Table -->
+    <div *ngIf="products.length > 0" class="products-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products" [class.inactive-row]="!product.active">
+            <td class="image-cell">
+              <img [src]="product.imageUrl || 'assets/default-product.png'" 
+                   [alt]="product.name" 
+                   class="product-image"
+                   (error)="onImageError($event)">
+            </td>
+            
+            <td class="name-cell">
+              <div class="product-name">{{ product.name }}</div>
+            </td>
+            
+            <td class="description-cell">
+              <div class="product-description" [title]="product.description || ''">
+                {{ (product.description || '').length > 50 ? ((product.description || '') | slice:0:50) + '...' : (product.description || '') }}
+              </div>
+            </td>
+            
+            <td class="price-cell">
+              <div class="product-price">{{ product.price | currency:'USD':'symbol' }}</div>
+            </td>
+            
+            <td class="stock-cell">
+              <span class="stock-badge" 
+                    [class.stock-high]="product.stockQuantity > 20"
+                    [class.stock-medium]="product.stockQuantity > 10 && product.stockQuantity <= 20"
+                    [class.stock-low]="product.stockQuantity <= 10">
+                {{ product.stockQuantity }}
+              </span>
+            </td>
+            
+            <td class="status-cell">
+              <span class="status-badge" 
+                    [class.status-active]="product.active"
+                    [class.status-inactive]="!product.active">
+                {{ product.active ? '✅ Active' : '❌ Inactive' }}
+              </span>
+            </td>
+            
+            <!-- ✅ AGREGAR botón para ver detalles en la tabla -->
+            <td class="actions-cell">
+             
+              <button (click)="editProduct(product)" 
+                      class="edit-btn" 
+                      title="Edit Product">
+                ✏️
+              </button>
+              <button (click)="deleteProduct(product)" 
+                      class="delete-btn" 
+                      title="Delete Product">
+                🗑️
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Product Details (for editing) -->
+  <div *ngIf="selectedProduct" class="product-details-modal">
+    <div class="product-details">
+      <!-- Close Button -->
+      <button (click)="closeDetails()" class="close-btn" title="Close">
+        ❌
+      </button>
+      
+      <!-- Product Image -->
+      <div class="image-preview">
+        <img [src]="selectedProduct.imageUrl || 'assets/default-product.png'" 
+             [alt]="selectedProduct.name" 
+             class="product-image-large"
+             (error)="onImageError($event)">
+      </div>
+      
+      <!-- Product Info -->
+      <div class="info-section">
+        <h2 class="product-title">{{ selectedProduct.name }}</h2>
+        
+        <!-- Estado: Activo / Inactivo -->
+        <div class="detail-row">
+          <span class="label">Estado:</span>
+          <span class="status-badge" 
+                [class.active]="selectedProduct.active" 
+                [class.inactive]="!selectedProduct.active">
+            {{ selectedProduct.active ? 'Activo' : 'Inactivo' }}
+          </span>
+        </div>
+        
+        <div class="detail-row">
+          <span class="label">Descripción:</span>
+          <span class="value">{{ selectedProduct.description }}</span>
+        </div>
+        
+        <div class="detail-row">
+          <span class="label">Precio:</span>
+          <span class="value">{{ selectedProduct.price | currency:'USD':'symbol' }}</span>
+        </div>
+        
+        <div class="detail-row">
+          <span class="label">Stock:</span>
+          <span class="value">{{ selectedProduct.stockQuantity }}</span>
+        </div>
+      </div>
+      
+      <!-- Actions -->
+      <div class="actions-section">
+        <button (click)="editProduct(selectedProduct)" 
+                class="edit-btn" 
+                title="Edit Product">
+          ✏️ Edit Product
+        </button>
+        <button (click)="deleteProduct(selectedProduct)" 
+                class="delete-btn" 
+                title="Delete Product">
+          🗑️ Delete Product
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

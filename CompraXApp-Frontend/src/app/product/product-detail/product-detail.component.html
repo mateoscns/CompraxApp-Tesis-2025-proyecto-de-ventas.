@@ -1,0 +1,105 @@
+<div class="product-detail-container">
+  <!-- Breadcrumb Navigation -->
+  <nav class="breadcrumb">
+    <a routerLink="/">Home</a>
+    <span>></span>
+    <a routerLink="/products">Products</a>
+    <span>></span>
+    <span>{{ product?.name || 'Product Details' }}</span>
+  </nav>
+
+  <div *ngIf="isLoading" class="loading-indicator">
+    <p>Loading product details...</p>
+  </div>
+
+  <div *ngIf="!isLoading && !product" class="not-found">
+    <h2>🚫 Product Not Found</h2>
+    <p>The product you're looking for doesn't exist or has been removed.</p>
+    <a routerLink="/products" class="btn btn-primary">← Back to Products</a>
+  </div>
+
+  <div class="product-detail" *ngIf="!isLoading && product">
+    <!-- ✅ AGREGAR: Badge de promoción -->
+    <div *ngIf="product.hasPromotion" class="promotion-banner">
+      <i class="fas fa-fire"></i>
+      <span>{{ product.promotionTitle }} - {{ product.discountPercentage }}% OFF!</span>
+    </div>
+
+    <div class="product-content">
+      <div class="product-image-section">
+        <img 
+          [src]="product.imageUrl || 'assets/default-product.png'" 
+          [alt]="product.name" 
+          class="product-image">
+      </div>
+
+      <div class="product-info-section">
+        <h1 class="product-title">{{ product.name }}</h1>
+        <p class="product-description">{{ product.description }}</p>
+
+        <!-- ✅ ACTUALIZAR: Precios con promoción -->
+        <div class="pricing-section">
+          <div *ngIf="product.hasPromotion" class="promotional-pricing">
+            <div class="price-row">
+              <span class="current-price">${{ product.price | number:'1.2-2' }}</span>
+              <span class="original-price">${{ product.originalPrice | number:'1.2-2' }}</span>
+            </div>
+            <div class="savings-info">
+              <span class="savings">You save ${{ (product.originalPrice - product.price) | number:'1.2-2' }}</span>
+              <span class="discount-percent">({{ product.discountPercentage }}% OFF)</span>
+            </div>
+          </div>
+          <div *ngIf="!product.hasPromotion" class="regular-pricing">
+            <span class="current-price">${{ product.price | number:'1.2-2' }}</span>
+          </div>
+        </div>
+
+        <!-- ✅ Resto del contenido... -->
+        <div class="stock-info">
+          <span *ngIf="product.stockQuantity > 0" class="in-stock">
+            ✅ {{ product.stockQuantity }} in stock
+          </span>
+          <span *ngIf="product.stockQuantity === 0" class="out-of-stock">
+            ❌ Out of stock
+          </span>
+        </div>
+
+        <div class="quantity-section" *ngIf="product.stockQuantity > 0">
+          <label for="quantity">Quantity:</label>
+          <div class="quantity-controls">
+            <button (click)="decrementQuantity()" class="qty-btn">-</button>
+            <input 
+              type="number" 
+              id="quantity"
+              [(ngModel)]="quantity" 
+              min="1" 
+              [max]="product.stockQuantity"
+              class="qty-input">
+            <button (click)="incrementQuantity()" class="qty-btn">+</button>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button 
+            *ngIf="product.stockQuantity > 0"
+            (click)="addToCart()" 
+            class="add-to-cart-btn"
+            [class.promotional]="product.hasPromotion">
+            <i class="fas fa-shopping-cart"></i>
+            Add to Cart
+            <span *ngIf="product.hasPromotion" class="promo-text">
+              ({{ product.discountPercentage }}% OFF!)
+            </span>
+          </button>
+          
+          <button 
+            *ngIf="product.stockQuantity === 0"
+            disabled 
+            class="out-of-stock-btn">
+            Out of Stock
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

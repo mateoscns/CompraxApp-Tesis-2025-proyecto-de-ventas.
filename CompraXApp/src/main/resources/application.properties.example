@@ -1,0 +1,48 @@
+spring.application.name=CompraXApp
+
+# Database Configuration - SQL Server
+spring.datasource.url=jdbc:sqlserver://localhost:1433;databaseName=compraxappdb;encrypt=false;trustServerCertificate=true
+spring.datasource.username=${DB_USERNAME:sa}
+spring.datasource.password=${DB_PASSWORD}
+spring.datasource.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+# JPA/Hibernate properties for SQL Server
+spring.jpa.hibernate.ddl-auto=none
+spring.jpa.database-platform=org.hibernate.dialect.SQLServerDialect
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+
+# SQL Initialization
+spring.sql.init.mode=never
+
+# Email Configuration
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=${MAIL_USERNAME}
+spring.mail.password=${MAIL_PASSWORD}
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+
+# Character encoding
+server.servlet.encoding.charset=UTF-8
+server.servlet.encoding.enabled=true
+server.servlet.encoding.force=true
+
+# Server configuration
+server.port=8080
+
+# Application specific properties
+app.frontend.baseurl=http://localhost:4200
+app.frontend.resetpassword.path=/auth/reset-password
+
+# Logging Configuration
+logging.level.org.springdoc=DEBUG
+logging.level.io.swagger.v3=DEBUG
+logging.level.org.springframework.web=DEBUG
+logging.level.com.fasterxml.jackson.databind=DEBUG
+
+# MercadoPago Link de Pago Configuration
+mercadopago.payment.link=${MERCADOPAGO_PAYMENT_LINK:https://link.mercadopago.com.ar/compraxapp}
+
+# WhatsApp Configuration
+whatsapp.business.phone=${WHATSAPP_BUSINESS_PHONE:+543513091448}

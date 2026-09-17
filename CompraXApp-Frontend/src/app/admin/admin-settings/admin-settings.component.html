@@ -1,0 +1,100 @@
+<div class="admin-settings">
+  <!-- Header -->
+  <div class="settings-header">
+    <h1>⚙️ System Settings</h1>
+    <p>Configure your application settings and preferences</p>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading">
+    <span>Loading settings...</span>
+  </div>
+
+  <!-- Settings Form -->
+  <div *ngIf="!isLoading" class="settings-content">
+    <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()" novalidate>
+      
+      <!-- General Settings -->
+      <div class="settings-section">
+        <div class="section-header">
+          <h2>🏢 General Settings</h2>
+          <p>Basic application configuration</p>
+        </div>
+        
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="siteName">Site Name *</label>
+            <input 
+              type="text" 
+              id="siteName" 
+              formControlName="siteName"
+              class="form-input"
+              placeholder="Your site name">
+          </div>
+
+          <div class="form-group">
+            <label for="siteDescription">Site Description *</label>
+            <textarea 
+              id="siteDescription" 
+              formControlName="siteDescription"
+              class="form-textarea"
+              rows="3"
+              placeholder="Brief description of your site"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="contactEmail">Contact Email *</label>
+            <input 
+              type="email" 
+              id="contactEmail" 
+              formControlName="contactEmail"
+              class="form-input"
+              placeholder="contact@yoursite.com">
+          </div>
+
+          <div class="form-group">
+            <label for="supportPhone">Support Phone *</label>
+            <input 
+              type="tel" 
+              id="supportPhone" 
+              formControlName="supportPhone"
+              class="form-input"
+              placeholder="+1 234 567 8900">
+          </div>
+        </div>
+      </div>
+
+    
+
+     
+
+      <!-- Action Buttons -->
+      <div class="form-actions">
+        <button 
+          type="button"
+          (click)="resetToDefaults()"
+          class="reset-btn"
+          [disabled]="isSaving">
+          🔄 Reset to Defaults
+        </button>
+
+        <button 
+          type="submit"
+          class="save-btn"
+          [disabled]="settingsForm.invalid || isSaving">
+          <span *ngIf="!isSaving">💾 Save Settings</span>
+          <span *ngIf="isSaving">⏳ Saving...</span>
+        </button>
+      </div>
+
+      <!-- Messages -->
+      <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
+      </div>
+
+      <div *ngIf="errorMessage" class="alert alert-error">
+        {{ errorMessage }}
+      </div>
+    </form>
+  </div>
+</div>

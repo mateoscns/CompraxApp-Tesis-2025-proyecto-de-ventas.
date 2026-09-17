@@ -1,0 +1,94 @@
+<div class="notification-center">
+  <div class="notification-header">
+    <h1>Notification Center</h1>
+    <div class="header-actions">
+      @if (hasUnreadNotifications) {
+        <button class="btn btn-outline" (click)="markAllAsRead()">
+          <i class="fas fa-check-double"></i>
+          Mark all as read
+        </button>
+      }
+    </div>
+  </div>
+
+  @if (loading && notifications.length === 0) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading notifications...</p>
+    </div>
+  } @else if (error) {
+    <div class="error-state">
+      <div class="error-icon">⚠️</div>
+      <h3>Error loading notifications</h3>
+      <p>{{ error }}</p>
+      <button class="btn btn-primary" (click)="loadNotifications(0)">
+        Retry
+      </button>
+    </div>
+  } @else if (notifications.length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">🔔</div>
+      <h3>You have no notifications</h3>
+      <p>When you have important updates, they will appear here.</p>
+    </div>
+  } @else {
+    <div class="notifications-list">
+      @for (notification of notifications; track notification.id) {
+        <div 
+          class="notification-item"
+          [class.unread]="!notification.read"
+          [class.read]="notification.read"
+          (click)="onNotificationClick(notification)">
+          
+          <div class="notification-icon" [class]="'icon-' + getColor(notification.type)">
+            <i [class]="getIcon(notification.type)"></i>
+          </div>
+
+          <div class="notification-content">
+            <div class="notification-header-item"> <!-- Renamed to avoid conflict -->
+              <h4 class="notification-title">{{ notification.title }}</h4>
+              <span class="notification-time">{{ getTimeAgo(notification.createdAt) }}</span>
+            </div>
+            <p class="notification-message">{{ notification.message }}</p>
+            @if (notification.relatedOrderId) {
+              <span class="notification-order">Order #{{ notification.relatedOrderId }}</span>
+            }
+          </div>
+
+          <div class="notification-actions">
+            @if (!notification.read) {
+              <button 
+                class="btn-icon read-btn" 
+                (click)="markAsRead(notification.id); $event.stopPropagation()"
+                title="Mark as read">
+                <i class="fas fa-check"></i>
+              </button>
+            }
+            <button 
+              class="btn-icon delete-btn" 
+              (click)="deleteNotification(notification.id, $event)"
+              title="Delete notification">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+
+    @if (hasMore) {
+      <div class="load-more">
+        <button 
+          class="btn btn-outline" 
+          (click)="loadMore()" 
+          [disabled]="loading">
+          @if (loading) {
+            <div class="spinner-small"></div>
+            Loading...
+          } @else {
+            Load more
+          }
+        </button>
+      </div>
+    }
+  }
+</div>

@@ -1,0 +1,244 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <h1>My Profile</h1>
+    <p>Manage your personal information</p>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading profile...</p>
+  </div>
+
+  <div *ngIf="!isLoading && errorMessage" class="error-state"> <!-- Combined !isLoading and errorMessage -->
+    <div class="error-icon">⚠️</div>
+    <h3>Error</h3>
+    <p>{{ errorMessage }}</p>
+    <button class="btn btn-primary" (click)="loadProfile()">
+      Retry
+    </button>
+  </div>
+
+  <div *ngIf="!isLoading && !errorMessage" class="profile-form">
+    <div class="form-section">
+      <h3>Personal Information</h3>
+      
+      <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+        <div *ngIf="successMessage" class="success-message">
+          <i class="fas fa-check-circle"></i>
+          {{ successMessage }}
+        </div>
+
+        <!-- Removed redundant errorMessage display here, handled above -->
+
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input 
+            type="text" 
+            id="name" 
+            formControlName="name"
+            class="form-control"
+            [class.error]="isFieldInvalid('name')">
+          
+          <div *ngIf="isFieldInvalid('name')" class="form-error">
+            <span *ngIf="profileForm.get('name')?.errors?.['required']">
+              Name is required
+            </span>
+            <span *ngIf="profileForm.get('name')?.errors?.['minlength']">
+              Name must be at least 2 characters
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="email"
+            class="form-control"
+            [class.error]="isFieldInvalid('email')">
+            
+          <div *ngIf="isFieldInvalid('email')" class="form-error">
+            <span *ngIf="profileForm.get('email')?.errors?.['required']">
+              Email is required
+            </span>
+            <span *ngIf="profileForm.get('email')?.errors?.['email']">
+              Please enter a valid email
+            </span>
+          </div>
+        </div>
+      </form>
+
+      <!-- Address Form Section -->
+      <div class="address-section">
+        <h4><i class="fas fa-map-marker-alt"></i> Shipping Address</h4>
+        <form [formGroup]="addressForm">
+          <div class="address-grid">
+            <!-- Street -->
+            <div class="form-group street-field">
+              <label for="street">Street *</label>
+              <input 
+                type="text" 
+                id="street" 
+                formControlName="street"
+                class="form-control"
+                [class.error]="isAddressFieldInvalid('street')"
+                placeholder="e.g. Av. Colón">
+              <div *ngIf="isAddressFieldInvalid('street')" class="form-error">
+                Street is required
+              </div>
+            </div>
+
+            <!-- Number -->
+            <div class="form-group number-field">
+              <label for="number">Number *</label>
+              <input 
+                type="text" 
+                id="number" 
+                formControlName="number"
+                class="form-control"
+                [class.error]="isAddressFieldInvalid('number')"
+                placeholder="e.g. 1234">
+              <div *ngIf="isAddressFieldInvalid('number')" class="form-error">
+                Number is required
+              </div>
+            </div>
+
+            <!-- Floor -->
+            <div class="form-group floor-field">
+              <label for="floor">Floor</label>
+              <input 
+                type="text" 
+                id="floor" 
+                formControlName="floor"
+                class="form-control"
+                placeholder="e.g. 3">
+            </div>
+
+            <!-- Apartment -->
+            <div class="form-group apartment-field">
+              <label for="apartment">Apt/Unit</label>
+              <input 
+                type="text" 
+                id="apartment" 
+                formControlName="apartment"
+                class="form-control"
+                placeholder="e.g. B">
+            </div>
+
+            <!-- City -->
+            <div class="form-group city-field">
+              <label for="city">City *</label>
+              <input 
+                type="text" 
+                id="city" 
+                formControlName="city"
+                class="form-control"
+                [class.error]="isAddressFieldInvalid('city')"
+                placeholder="e.g. Córdoba">
+              <div *ngIf="isAddressFieldInvalid('city')" class="form-error">
+                City is required
+              </div>
+            </div>
+
+            <!-- Province -->
+            <div class="form-group province-field">
+              <label for="province">Province *</label>
+              <select 
+                id="province" 
+                formControlName="province"
+                class="form-control"
+                [class.error]="isAddressFieldInvalid('province')">
+                <option value="">Select province</option>
+                <option *ngFor="let province of provinces" [value]="province">
+                  {{ province }}
+                </option>
+              </select>
+              <div *ngIf="isAddressFieldInvalid('province')" class="form-error">
+                Province is required
+              </div>
+            </div>
+
+            <!-- Postal Code -->
+            <div class="form-group postal-field">
+              <label for="postalCode">Postal Code *</label>
+              <input 
+                type="text" 
+                id="postalCode" 
+                formControlName="postalCode"
+                class="form-control"
+                [class.error]="isAddressFieldInvalid('postalCode')"
+                placeholder="e.g. 5000">
+              <div *ngIf="isAddressFieldInvalid('postalCode')" class="form-error">
+                Postal code is required
+              </div>
+            </div>
+
+            <!-- Additional Info -->
+            <div class="form-group additional-field">
+              <label for="additionalInfo">Additional Info</label>
+              <input 
+                type="text" 
+                id="additionalInfo" 
+                formControlName="additionalInfo"
+                class="form-control"
+                placeholder="e.g. Between streets, references...">
+            </div>
+          </div>
+        </form>
+      </div>
+
+        <div class="form-actions">
+          <button 
+            type="button" 
+            class="btn btn-primary" 
+            (click)="toggleEdit()"
+            *ngIf="!isEditing">
+            <i class="fas fa-edit"></i>
+            Edit Profile
+          </button>
+
+          <div *ngIf="isEditing" class="edit-actions">
+            <button type="button" 
+                    class="btn btn-success" 
+                    (click)="saveProfile()"
+                    [disabled]="profileForm.invalid || addressForm.invalid || isSaving">
+              <i *ngIf="isSaving" class="fas fa-spinner fa-spin"></i>
+              <i *ngIf="!isSaving" class="fas fa-save"></i>
+              Save Changes
+            </button>
+            
+            <button type="button" 
+                    class="btn btn-secondary" 
+                    (click)="cancelEdit()"
+                    [disabled]="isSaving">
+              <i class="fas fa-times"></i>
+              Cancel
+            </button>
+          </div>
+        </div>
+    </div>
+
+    <div class="form-section">
+      <h3>Security</h3>
+      <div class="security-info">
+        <p>To change your password, use the "Forgot Password" option on the login page.</p>
+        <button type="button" class="btn btn-outline" (click)="requestPasswordReset()">
+          <i class="fas fa-key"></i>
+          Change Password
+        </button>
+      </div>
+    </div>
+
+    <div class="form-section danger-section">
+      <h3>Danger Zone</h3>
+      <div class="danger-info">
+        <p>This action cannot be undone. Your account and all your data will be permanently deleted.</p>
+        <button type="button" class="btn btn-danger" (click)="deleteAccount()">
+          <i class="fas fa-trash"></i>
+          Delete Account
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

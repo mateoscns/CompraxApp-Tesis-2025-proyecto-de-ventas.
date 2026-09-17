@@ -1,0 +1,449 @@
+.contact-page {
+  min-height: 100vh;
+  background: var(--gray-50);
+}
+
+/* ✅ FIX: Hero Section */
+.contact-hero {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  color: white;
+  padding: var(--spacing-12) 0;
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  margin-bottom: var(--spacing-4);
+}
+
+.hero-content p {
+  font-size: var(--font-size-lg);
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ✅ FIX: Container principal */
+.contact-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+}
+
+/* ✅ FIX: Contact Methods Section */
+.contact-methods {
+  background: white;
+  padding: var(--spacing-8);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.contact-methods h2 {
+  font-size: var(--font-size-2xl);
+  color: var(--gray-900);
+  margin-bottom: var(--spacing-6);
+  text-align: center;
+}
+
+.methods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-6);
+}
+
+.method-card {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  padding: var(--spacing-6);
+  background: var(--gray-50);
+  border-radius: var(--border-radius-lg);
+  transition: all var(--transition-fast);
+  border: 2px solid transparent;
+}
+
+.method-card:hover {
+  background: var(--primary-bg);
+  border-color: var(--primary-color);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.method-icon {
+  font-size: 2.5rem;
+  min-width: 60px;
+  text-align: center;
+}
+
+.method-content h3 {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--gray-900);
+  margin: 0 0 var(--spacing-2) 0;
+}
+
+.method-content p {
+  font-size: var(--font-size-sm);
+  color: var(--gray-600);
+  margin: 0 0 var(--spacing-3) 0;
+}
+
+.method-contact {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--primary-color);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.method-contact:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+.chat-link {
+  cursor: pointer;
+}
+
+/* ✅ FIX: Contact Form Section */
+.contact-form-section {
+  background: white;
+  padding: var(--spacing-8);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: var(--spacing-8);
+}
+
+.form-header h2 {
+  font-size: var(--font-size-2xl);
+  color: var(--gray-900);
+  margin: 0 0 var(--spacing-3) 0;
+}
+
+.form-header p {
+  color: var(--gray-600);
+  font-size: var(--font-size-base);
+  margin: 0;
+}
+
+/* ✅ FIX: Form Styles */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-4);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--gray-900);
+  font-size: var(--font-size-sm);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: var(--spacing-3);
+  border: 2px solid var(--gray-300);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-base);
+  transition: all var(--transition-fast);
+  background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-bg);
+}
+
+.form-group input.error,
+.form-group select.error,
+.form-group textarea.error {
+  border-color: var(--danger-color);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.error-message {
+  color: var(--danger-color);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+.character-count {
+  font-size: var(--font-size-sm);
+  color: var(--gray-500);
+  text-align: right;
+}
+
+/* ✅ FIX: Checkbox */
+.checkbox-group {
+  flex-direction: row !important;
+  align-items: center;
+  gap: var(--spacing-3) !important;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  color: var(--gray-700);
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+
+/* ✅ FIX: Submit Button */
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--spacing-4);
+}
+
+.submit-btn {
+  background: var(--primary-color);
+  color: white;
+  padding: var(--spacing-4) var(--spacing-8);
+  border: none;
+  border-radius: var(--border-radius-lg);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  min-width: 180px;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.submit-btn:disabled {
+  background: var(--gray-400);
+  cursor: not-allowed;
+}
+
+/* ✅ FIX: Alerts */
+.alert {
+  padding: var(--spacing-4);
+  border-radius: var(--border-radius);
+  margin-top: var(--spacing-4);
+  font-weight: 500;
+}
+
+.alert-success {
+  background: #dcfce7;
+  color: #166534;
+  border: 2px solid #22c55e;
+}
+
+.alert-error {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 2px solid #ef4444;
+}
+
+/* ✅ FIX: FAQ Section */
+.faq-section {
+  background: white;
+  padding: var(--spacing-8);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.faq-section h2 {
+  font-size: var(--font-size-2xl);
+  color: var(--gray-900);
+  margin: 0 0 var(--spacing-3) 0;
+  text-align: center;
+}
+
+.faq-section > p {
+  text-align: center;
+  color: var(--gray-600);
+  margin: 0 0 var(--spacing-8) 0;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.faq-item {
+  border: 2px solid var(--gray-200);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-fast);
+}
+
+.faq-item:hover {
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-md);
+}
+
+.faq-question {
+  background: var(--gray-50);
+  padding: var(--spacing-4);
+  font-weight: 600;
+  color: var(--gray-900);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.faq-icon {
+  font-size: 1.2rem;
+}
+
+.faq-answer {
+  padding: var(--spacing-4);
+  color: var(--gray-700);
+  line-height: 1.6;
+}
+
+.faq-footer {
+  text-align: center;
+  margin-top: var(--spacing-8);
+  padding-top: var(--spacing-6);
+  border-top: 2px solid var(--gray-200);
+}
+
+.faq-footer a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.faq-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ✅ FIX: Business Hours */
+.business-hours {
+  background: white;
+  padding: var(--spacing-8);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.business-hours h3 {
+  font-size: var(--font-size-xl);
+  color: var(--gray-900);
+  margin: 0 0 var(--spacing-6) 0;
+  text-align: center;
+}
+
+.hours-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.hours-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-3);
+  background: var(--gray-50);
+  border-radius: var(--border-radius);
+}
+
+.day {
+  font-weight: 600;
+  color: var(--gray-900);
+}
+
+.time {
+  color: var(--gray-700);
+}
+
+.hours-note {
+  text-align: center;
+  color: var(--gray-600);
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-4);
+  font-style: italic;
+}
+
+/* ✅ FIX: Responsive Design */
+@media (max-width: 768px) {
+  .contact-container {
+    padding: var(--spacing-4);
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .methods-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .method-card {
+    flex-direction: column;
+    text-align: center;
+    padding: var(--spacing-4);
+  }
+  
+  .method-icon {
+    min-width: auto;
+  }
+  
+  .contact-form-section,
+  .contact-methods,
+  .faq-section,
+  .business-hours {
+    padding: var(--spacing-6);
+  }
+  
+  .hero-content h1 {
+    font-size: var(--font-size-2xl);
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-container {
+    padding: var(--spacing-2);
+  }
+  
+  .contact-form-section,
+  .contact-methods,
+  .faq-section,
+  .business-hours {
+    padding: var(--spacing-4);
+  }
+  
+  .submit-btn {
+    width: 100%;
+  }
+}

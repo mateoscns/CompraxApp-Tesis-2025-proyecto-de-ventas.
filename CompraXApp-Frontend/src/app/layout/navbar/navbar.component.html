@@ -1,0 +1,107 @@
+<nav class="navbar">
+  <div class="nav-container">
+    <!-- Logo -->
+    <div class="navbar-brand">
+      <a routerLink="/" class="brand-link">
+      
+        <span class="brand-text">CompraXApp</span>
+      </a>
+    </div>
+
+    <!-- Desktop Navigation -->
+    <div class="navbar-nav">
+      <a routerLink="/products" class="nav-link">Products</a>
+      <a *ngIf="currentUser" routerLink="/cart" class="nav-link cart-link">
+        Cart
+        <span *ngIf="cartItemCount > 0" class="cart-badge">{{ cartItemCount }}</span>
+      </a>
+    </div>
+
+    <!-- Right Side Controls -->
+    <div class="navbar-controls">
+      <!-- Auth Links (when not logged in) -->
+      <div *ngIf="!currentUser" class="auth-links">
+        <a routerLink="/auth/login" class="btn btn-outline btn-sm">Login</a>
+        <a routerLink="/auth/register" class="btn btn-primary btn-sm">Sign Up</a>
+      </div>
+      
+      <!-- User Menu (when logged in) -->
+      <div *ngIf="currentUser" class="nav-user-menu">
+        <!-- ✅ NOTIFICACIONES DESKTOP -->
+        <div class="navbar-notifications">
+          <app-notification-dropdown></app-notification-dropdown>
+        </div>
+        
+        <div class="dropdown">
+          <button class="user-menu-btn" (click)="toggleUserMenu()">
+            <span class="user-icon">👤</span>
+            <span class="user-email">{{ currentUser.email }}</span>
+            <span class="dropdown-arrow">▼</span>
+          </button>
+          
+          <div *ngIf="isUserMenuOpen" class="dropdown-menu">
+            <a routerLink="/user/profile" class="dropdown-item" (click)="closeUserMenu()">
+              <span class="item-icon">👤</span>
+              My Profile
+            </a>
+            
+            <a routerLink="/user/orders" class="dropdown-item" (click)="closeUserMenu()">
+              <span class="item-icon">📦</span>
+              My Orders
+            </a>
+         
+            
+            <div *ngIf="isAdmin()" class="dropdown-divider"></div>
+            
+            <a *ngIf="isAdmin()" routerLink="/admin" class="dropdown-item" (click)="closeUserMenu()">
+              <span class="item-icon">⚙️</span>
+              Admin Panel
+            </a>
+            
+            <div class="dropdown-divider"></div>
+            
+            <button (click)="logout()" class="dropdown-item logout-btn">
+              <span class="item-icon">🚪</span>
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" (click)="toggleMobileMenu()">
+      <span class="hamburger"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" [class.open]="mobileMenuOpen">
+    <a routerLink="/products" (click)="closeMobileMenu()" class="mobile-nav-link">Products</a>
+    <a *ngIf="currentUser" routerLink="/cart" (click)="closeMobileMenu()" class="mobile-nav-link">
+      Cart <span *ngIf="cartItemCount > 0" class="cart-badge">{{ cartItemCount }}</span>
+    </a>
+    
+    <!-- ✅ SIMPLIFICAR NOTIFICACIONES EN MOBILE -->
+    <a *ngIf="currentUser" routerLink="/notifications" (click)="closeMobileMenu()" class="mobile-nav-link">
+      🔔 Notifications
+    </a>
+    
+    <a *ngIf="currentUser && isAdmin()" routerLink="/admin" (click)="closeMobileMenu()" class="mobile-nav-link">Admin</a>
+    
+    <div class="mobile-auth" *ngIf="!currentUser">
+      <a routerLink="/auth/login" (click)="closeMobileMenu()" class="btn btn-outline">Login</a>
+      <a routerLink="/auth/register" (click)="closeMobileMenu()" class="btn btn-primary">Sign Up</a>
+    </div>
+    
+    <div class="mobile-user" *ngIf="currentUser">
+      <div class="mobile-user-info">
+        <strong>{{ getUserName() }}</strong>
+        <span>{{ currentUser.email }}</span>
+      </div>
+      <a routerLink="/user/profile" (click)="closeMobileMenu()" class="mobile-nav-link">My Profile</a>
+      <a routerLink="/user/orders" (click)="closeMobileMenu()" class="mobile-nav-link">My Orders</a>
+      <button (click)="logout()" class="btn btn-danger">Logout</button>
+    </div>
+  </div>
+</nav>

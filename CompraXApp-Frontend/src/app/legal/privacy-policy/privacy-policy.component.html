@@ -1,0 +1,317 @@
+<div class="legal-container">
+  <div class="legal-header">
+    <h1>🔒 Privacy Policy</h1>
+    <p class="last-updated">Last updated: {{ lastUpdated }}</p>
+    <div class="breadcrumb">
+      <a routerLink="/">Home</a> > <span>Privacy Policy</span>
+    </div>
+  </div>
+
+  <div class="legal-sidebar">
+    <nav class="table-of-contents">
+      <h3>Table of Contents</h3>
+      <ul>
+        <li><a (click)="scrollToSection('overview')">1. Overview</a></li>
+        <li><a (click)="scrollToSection('information')">2. Information We Collect</a></li>
+        <li><a (click)="scrollToSection('usage')">3. How We Use Information</a></li>
+        <li><a (click)="scrollToSection('sharing')">4. Information Sharing</a></li>
+        <li><a (click)="scrollToSection('security')">5. Data Security</a></li>
+        <li><a (click)="scrollToSection('retention')">6. Data Retention</a></li>
+        <li><a (click)="scrollToSection('rights')">7. Your Rights</a></li>
+        <li><a (click)="scrollToSection('cookies')">8. Cookies & Tracking</a></li>
+        <li><a (click)="scrollToSection('third-party')">9. Third-Party Services</a></li>
+        <li><a (click)="scrollToSection('children')">10. Children's Privacy</a></li>
+        <li><a (click)="scrollToSection('changes')">11. Policy Changes</a></li>
+        <li><a (click)="scrollToSection('contact')">12. Contact Us</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="legal-content">
+    <section class="legal-section" id="overview">
+      <h2>1. Overview</h2>
+      <p>
+        At CompraXApp, we are committed to protecting your privacy and ensuring the security of your personal information. 
+        This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our service.
+      </p>
+      <div class="highlight-box">
+        <strong>Your Privacy Matters:</strong> We follow industry best practices and comply with applicable privacy laws to protect your data.
+      </div>
+    </section>
+
+    <section class="legal-section" id="information">
+      <h2>2. Information We Collect</h2>
+      
+      <h3>Personal Information</h3>
+      <ul class="info-list">
+        <li>👤 Name and contact information</li>
+        <li>📧 Email address</li>
+        <li>📞 Phone number</li>
+        <li>📍 Shipping and billing addresses</li>
+        <li>💳 Payment information (processed securely)</li>
+        <li>🆔 Account credentials</li>
+      </ul>
+
+      <h3>Automatically Collected Information</h3>
+      <ul class="info-list">
+        <li>🌐 IP address and browser information</li>
+        <li>📱 Device type and operating system</li>
+        <li>🔍 Pages visited and time spent</li>
+        <li>📊 Usage patterns and preferences</li>
+        <li>🍪 Cookies and similar technologies</li>
+      </ul>
+
+      <h3>Optional Information</h3>
+      <ul class="info-list">
+        <li>🎂 Birthday for special offers</li>
+        <li>⭐ Product reviews and ratings</li>
+        <li>📝 Customer service communications</li>
+        <li>📋 Survey responses</li>
+      </ul>
+    </section>
+
+    <section class="legal-section" id="usage">
+      <h2>3. How We Use Your Information</h2>
+      <p>We use your information to:</p>
+      
+      <div class="usage-grid">
+        <div class="usage-card">
+          <h4>🛍️ Service Delivery</h4>
+          <ul>
+            <li>Process and fulfill orders</li>
+            <li>Manage your account</li>
+            <li>Provide customer support</li>
+            <li>Send order confirmations</li>
+          </ul>
+        </div>
+        
+        <div class="usage-card">
+          <h4>📈 Improvement</h4>
+          <ul>
+            <li>Analyze usage patterns</li>
+            <li>Enhance user experience</li>
+            <li>Develop new features</li>
+            <li>Optimize our platform</li>
+          </ul>
+        </div>
+        
+        <div class="usage-card">
+          <h4>💬 Communication</h4>
+          <ul>
+            <li>Send updates and notifications</li>
+            <li>Marketing communications</li>
+            <li>Security alerts</li>
+            <li>Policy changes</li>
+          </ul>
+        </div>
+        
+        <div class="usage-card">
+          <h4>🔒 Security</h4>
+          <ul>
+            <li>Prevent fraud and abuse</li>
+            <li>Ensure platform security</li>
+            <li>Comply with legal requirements</li>
+            <li>Protect user rights</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="legal-section" id="sharing">
+      <h2>4. Information Sharing</h2>
+      <p>We never sell your personal information. We may share your information only in these circumstances:</p>
+      
+      <div class="sharing-list">
+        <div class="sharing-item">
+          <h4>🤝 Service Providers</h4>
+          <p>Trusted third parties who help us operate our business (payment processors, shipping companies, etc.)</p>
+        </div>
+        
+        <div class="sharing-item">
+          <h4>⚖️ Legal Requirements</h4>
+          <p>When required by law, court order, or government regulation</p>
+        </div>
+        
+        <div class="sharing-item">
+          <h4>🛡️ Protection</h4>
+          <p>To protect our rights, property, or safety, or that of our users</p>
+        </div>
+        
+        <div class="sharing-item">
+          <h4>🏢 Business Transfers</h4>
+          <p>In case of merger, acquisition, or sale of assets (with notice to users)</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="legal-section" id="security">
+      <h2>5. Data Security</h2>
+      <p>We implement comprehensive security measures to protect your information:</p>
+      
+      <div class="security-measures">
+        <div class="security-item">
+          <span class="security-icon">🔐</span>
+          <div>
+            <h4>Encryption</h4>
+            <p>All sensitive data is encrypted in transit and at rest</p>
+          </div>
+        </div>
+        
+        <div class="security-item">
+          <span class="security-icon">🔒</span>
+          <div>
+            <h4>Secure Servers</h4>
+            <p>Our servers are protected by firewalls and monitoring systems</p>
+          </div>
+        </div>
+        
+        <div class="security-item">
+          <span class="security-icon">👥</span>
+          <div>
+            <h4>Access Control</h4>
+            <p>Limited access to personal data on a need-to-know basis</p>
+          </div>
+        </div>
+        
+        <div class="security-item">
+          <span class="security-icon">🔍</span>
+          <div>
+            <h4>Regular Audits</h4>
+            <p>Ongoing security assessments and vulnerability testing</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="legal-section" id="retention">
+      <h2>6. Data Retention</h2>
+      <p>We retain your information for as long as necessary to:</p>
+      <ul>
+        <li>Provide our services to you</li>
+        <li>Comply with legal obligations</li>
+        <li>Resolve disputes and enforce agreements</li>
+        <li>Maintain business records</li>
+      </ul>
+      <p>You can request deletion of your account and personal data at any time.</p>
+    </section>
+
+    <section class="legal-section" id="rights">
+      <h2>7. Your Privacy Rights</h2>
+      <p>You have the right to:</p>
+      
+      <div class="rights-grid">
+        <div class="right-item">
+          <h4>📋 Access</h4>
+          <p>Request a copy of your personal data</p>
+        </div>
+        
+        <div class="right-item">
+          <h4>✏️ Correction</h4>
+          <p>Update or correct inaccurate information</p>
+        </div>
+        
+        <div class="right-item">
+          <h4>🗑️ Deletion</h4>
+          <p>Request deletion of your personal data</p>
+        </div>
+        
+        <div class="right-item">
+          <h4>📤 Portability</h4>
+          <p>Request transfer of your data to another service</p>
+        </div>
+        
+        <div class="right-item">
+          <h4>🚫 Opt-out</h4>
+          <p>Unsubscribe from marketing communications</p>
+        </div>
+        
+        <div class="right-item">
+          <h4>⏸️ Restriction</h4>
+          <p>Limit how we process your data</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="legal-section" id="cookies">
+      <h2>8. Cookies & Tracking Technologies</h2>
+      <p>We use cookies and similar technologies to enhance your experience:</p>
+      
+      <div class="cookie-types">
+        <div class="cookie-type">
+          <h4>🍪 Essential Cookies</h4>
+          <p>Required for basic website functionality</p>
+        </div>
+        
+        <div class="cookie-type">
+          <h4>📊 Analytics Cookies</h4>
+          <p>Help us understand how you use our site</p>
+        </div>
+        
+        <div class="cookie-type">
+          <h4>🎯 Marketing Cookies</h4>
+          <p>Used to show relevant advertisements</p>
+        </div>
+        
+        <div class="cookie-type">
+          <h4>⚙️ Preference Cookies</h4>
+          <p>Remember your settings and preferences</p>
+        </div>
+      </div>
+      
+      <p>You can manage cookie preferences in your browser settings.</p>
+    </section>
+
+    <section class="legal-section" id="third-party">
+      <h2>9. Third-Party Services</h2>
+      <p>We work with trusted partners to provide our services:</p>
+      <ul>
+        <li><strong>Payment Processing:</strong> MercadoPago for secure transactions</li>
+       
+        <li><strong>Shipping:</strong> Various carriers for product delivery</li>
+    
+      </ul>
+      <p>These partners have their own privacy policies and data handling practices.</p>
+    </section>
+
+    <section class="legal-section" id="children">
+      <h2>10. Children's Privacy</h2>
+      <p>
+        Our service is not intended for children under 13. We do not knowingly collect personal information from children under 13. 
+        If we discover that we have collected such information, we will delete it immediately.
+      </p>
+    </section>
+
+    <section class="legal-section" id="changes">
+      <h2>11. Policy Changes</h2>
+      <p>
+        We may update this Privacy Policy periodically. We will notify you of significant changes via email or prominent notice on our website. 
+        Your continued use of our service after changes constitutes acceptance of the updated policy.
+      </p>
+    </section>
+
+    <section class="legal-section" id="contact">
+      <h2>12. Contact Us</h2>
+      <p>For privacy-related questions or requests, please contact us:</p>
+      <div class="contact-info">
+        <div class="contact-item">
+          <strong>📧 Privacy Email:</strong> <a href="mailto:privacy@compraxapp.com"></a>
+        </div>
+        <div class="contact-item">
+          <strong>📞 Phone:</strong> <a href="tel:+15551234567">+54 351 309 1448</a>
+        </div>
+        <div class="contact-item">
+          <strong>📍 Address:</strong> CompraXApp Privacy Officer<br> E-commerce St<br>Cordoba, Argentina
+        </div>
+      </div>
+    </section>
+
+    <div class="legal-footer">
+      <p>Your privacy is our priority! 🔒</p>
+      <div class="footer-links">
+        <a routerLink="/terms" class="btn btn-outline">Terms of Service</a>
+        <a routerLink="/help" class="btn btn-outline">Help Center</a>
+        <a routerLink="/contact" class="btn btn-primary">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</div>

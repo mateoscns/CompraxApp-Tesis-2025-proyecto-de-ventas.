@@ -1,0 +1,139 @@
+<div class="product-form-container">
+  <!-- Header -->
+  <div class="form-header">
+    <h1>{{ isEditMode ? 'Edit Product' : 'Create New Product' }}</h1>
+    <button type="button" (click)="cancel()" class="cancel-btn">
+      ← Back to Products
+    </button>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner"></div>
+    <span>Loading product data...</span>
+  </div>
+
+  <!-- Form -->
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form" *ngIf="!isLoading">
+    <!-- Name and Price -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="name">Product Name *</label>
+        <input 
+          type="text" 
+          id="name" 
+          formControlName="name"
+          [class.error]="isFieldInvalid('name')"
+          placeholder="Enter product name">
+        <div *ngIf="isFieldInvalid('name')" class="error-message">
+          {{ getFieldError('name') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="price">Price *</label>
+        <input 
+          type="number" 
+          id="price" 
+          formControlName="price"
+          [class.error]="isFieldInvalid('price')"
+          placeholder="0.00"
+          step="0.01"
+          min="0">
+        <div *ngIf="isFieldInvalid('price')" class="error-message">
+          {{ getFieldError('price') }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="form-group full-width">
+      <label for="description">Description *</label>
+      <textarea 
+        id="description" 
+        formControlName="description"
+        [class.error]="isFieldInvalid('description')"
+        placeholder="Enter product description"
+        rows="4">
+      </textarea>
+      <div *ngIf="isFieldInvalid('description')" class="error-message">
+        {{ getFieldError('description') }}
+      </div>
+    </div>
+
+    <!-- Stock and Active -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="stockQuantity">Stock Quantity *</label>
+        <input 
+          type="number" 
+          id="stockQuantity" 
+          formControlName="stockQuantity"
+          [class.error]="isFieldInvalid('stockQuantity')"
+          placeholder="0"
+          min="0">
+        <div *ngIf="isFieldInvalid('stockQuantity')" class="error-message">
+          {{ getFieldError('stockQuantity') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="checkbox-label">
+          <input 
+            type="checkbox" 
+            formControlName="active">
+          Product is active and available for sale
+        </label>
+      </div>
+    </div>
+
+    <!-- Image URL -->
+    <div class="form-group full-width">
+      <label for="imageUrl">Image URL</label>
+      <input 
+        type="url" 
+        id="imageUrl" 
+        formControlName="imageUrl"
+        placeholder="https://example.com/image.jpg">
+      <div *ngIf="productForm.get('imageUrl')?.invalid && productForm.get('imageUrl')?.touched" 
+           class="error-message">
+        Please enter a valid URL
+      </div>
+    </div>
+
+    <!-- Preview de imagen (CORREGIDO) -->
+    <div *ngIf="productForm.get('imageUrl')?.value" class="form-group full-width">
+      <label>Image Preview:</label>
+      <div class="image-preview-container">
+        <img 
+          [src]="productForm.get('imageUrl')?.value" 
+          alt="Product preview"
+          class="image-preview"
+          (error)="onImageError($event)">
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div *ngIf="errorMessage" class="alert alert-error">
+      ❌ {{ errorMessage }}
+    </div>
+
+    <div *ngIf="successMessage" class="alert alert-success">
+      ✅ {{ successMessage }}
+    </div>
+
+    <!-- Actions -->
+    <div class="form-actions">
+      <button type="button" (click)="cancel()" class="cancel-btn">
+        Cancel
+      </button>
+      <button 
+        type="submit" 
+        [disabled]="productForm.invalid || isSubmitting"
+        class="submit-btn">
+        <span *ngIf="isSubmitting">{{ isEditMode ? 'Updating...' : 'Creating...' }}</span>
+        <span *ngIf="!isSubmitting">{{ isEditMode ? 'Update Product' : 'Create Product' }}</span>
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,153 @@
+<div class="admin-payments">
+  <div class="payments-header">
+    <h1>💳 Payment Management</h1>
+    <p>Manage and confirm customer payments</p>
+    <button (click)="refreshData()" class="refresh-btn" [disabled]="isLoading">
+      <span *ngIf="!isLoading">🔄 Refresh</span>
+      <span *ngIf="isLoading">⏳ Loading...</span>
+    </button>
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="tab-navigation">
+    <button 
+      (click)="switchTab('pending')" 
+      [class.active]="selectedTab === 'pending'"
+      class="tab-btn">
+      ⏳ Pending ({{ pendingPayments.length }})
+    </button>
+    <button 
+      (click)="switchTab('all')" 
+      [class.active]="selectedTab === 'all'"
+      class="tab-btn">
+      📋 All Payments ({{ allPayments.length }})
+    </button>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Loading payments...</p>
+  </div>
+
+  <!-- Pending Payments Tab -->
+  <div *ngIf="selectedTab === 'pending' && !isLoading" class="payments-content">
+    <!-- ✅ NUEVO: Mensaje si endpoint no está implementado -->
+    <div *ngIf="!pendingPaymentsAvailable" class="not-implemented">
+      <h3>⚠️ Feature Under Development</h3>
+      <p>The pending payments endpoint is not yet implemented in the backend.</p>
+      <p>This feature will be available in a future update.</p>
+    </div>
+
+    <div *ngIf="pendingPaymentsAvailable && pendingPayments.length === 0" class="no-data">
+      <h3>✅ No Pending Payments</h3>
+      <p>All payments have been processed.</p>
+    </div>
+
+    <div *ngIf="pendingPaymentsAvailable && pendingPayments.length > 0" class="payments-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Payment ID</th>
+            <th>Order ID</th>
+            <th>Method</th>
+            <th>Amount</th>
+            <th>Transaction ID</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let payment of pendingPayments">
+            <td>#{{ payment.id }}</td>
+            <td>
+              <a routerLink="/admin/orders/{{ payment.orderId }}" class="order-link">
+                #{{ payment.orderId }}
+              </a>
+            </td>
+            <td>
+              <span class="badge" [class]="getMethodBadgeClass(payment.method)">
+                {{ formatPaymentMethod(payment.method) }}
+              </span>
+            </td>
+            <td class="amount">{{ payment.amount | currency:'USD':'symbol':'1.2-2' }}</td>
+            <td class="transaction-id">
+              {{ payment.externalPaymentId || 'N/A' }}
+            </td>
+            <td>{{ payment.paymentDate | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td>
+              <span class="badge" [class]="getStatusBadgeClass(payment.status)">
+                {{ payment.status }}
+              </span>
+            </td>
+            <td>
+              <button 
+                (click)="confirmPayment(payment.id)" 
+                class="confirm-btn"
+                [disabled]="payment.status !== 'PENDING'">
+                ✅ Confirm
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- All Payments Tab -->
+  <div *ngIf="selectedTab === 'all' && !isLoading" class="payments-content">
+    <!-- ✅ NUEVO: Mensaje si endpoint no está implementado -->
+    <div *ngIf="!allPaymentsAvailable" class="not-implemented">
+      <h3>⚠️ Feature Under Development</h3>
+      <p>The all payments endpoint is not yet implemented in the backend.</p>
+      <p>This feature will be available in a future update.</p>
+    </div>
+
+    <div *ngIf="allPaymentsAvailable && allPayments.length === 0" class="no-data">
+      <h3>📋 No Payments Found</h3>
+      <p>No payment records available.</p>
+    </div>
+
+    <div *ngIf="allPaymentsAvailable && allPayments.length > 0" class="payments-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Payment ID</th>
+            <th>Order ID</th>
+            <th>Method</th>
+            <th>Amount</th>
+            <th>Transaction ID</th>
+            <th>Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let payment of allPayments">
+            <td>#{{ payment.id }}</td>
+            <td>
+              <a routerLink="/admin/orders/{{ payment.orderId }}" class="order-link">
+                #{{ payment.orderId }}
+              </a>
+            </td>
+            <td>
+              <span class="badge" [class]="getMethodBadgeClass(payment.method)">
+                {{ formatPaymentMethod(payment.method) }}
+              </span>
+            </td>
+            <td class="amount">{{ payment.amount | currency:'USD':'symbol':'1.2-2' }}</td>
+            <td class="transaction-id">
+              {{ payment.externalPaymentId || 'N/A' }}
+            </td>
+            <td>{{ payment.paymentDate | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td>
+              <span class="badge" [class]="getStatusBadgeClass(payment.status)">
+                {{ payment.status }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,279 @@
+<div class="admin-reports-container">
+  <!-- Messages -->
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-error">
+    {{ errorMessage }}
+  </div>
+  
+  <!-- Header -->
+  <div class="page-header">
+    <h1>📊 Admin Reports Dashboard</h1>
+    <p>Business analytics and reporting</p>
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="tab-navigation">
+    <button 
+      class="tab-button"
+      [class.active]="activeTab === 'summary'"
+      (click)="switchTab('summary')">
+      📈 Summary
+    </button>
+    <button 
+      class="tab-button"
+      [class.active]="activeTab === 'sales'"
+      (click)="switchTab('sales')">
+      💰 Sales Reports
+    </button>
+    <button 
+      class="tab-button"
+      [class.active]="activeTab === 'products'"
+      (click)="switchTab('products')">
+      📦 Product Statistics
+    </button>
+    <button 
+      class="tab-button"
+      [class.active]="activeTab === 'users'"
+      (click)="switchTab('users')">
+      👥 User Statistics
+    </button>
+  </div>
+
+  <!-- ✅ CORREGIDO: Summary Tab -->
+  <div *ngIf="activeTab === 'summary'" class="tab-content">
+    <div *ngIf="reportsSummary" class="summary-container">
+      <h2>📊 Reports Summary</h2>
+      
+      <!-- Sales Report Summary -->
+      <div *ngIf="reportsSummary.salesReport" class="summary-section">
+        <h3>💰 Sales Overview (Last 30 Days)</h3>
+        <div class="summary-grid">
+          <div class="summary-card">
+            <h4>Total Orders</h4>
+            <p class="summary-value">{{ reportsSummary.salesReport.totalOrders }}</p>
+          </div>
+          <div class="summary-card">
+            <h4>Total Revenue</h4>
+            <p class="summary-value">${{ reportsSummary.salesReport.totalRevenue | number:'1.2-2' }}</p>
+          </div>
+          <div class="summary-card">
+            <h4>Average Order Value</h4>
+            <p class="summary-value">${{ reportsSummary.salesReport.averageOrderValue | number:'1.2-2' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ✅ NEW: Summary Chart -->
+      <div *ngIf="reportsSummary.productSales && reportsSummary.productSales.length > 0" class="chart-section">
+        <div class="chart-container chart-medium">
+          <canvas #summaryPieChart></canvas>
+        </div>
+      </div>
+
+      <!-- Top Products Summary -->
+      <div *ngIf="reportsSummary.productSales && reportsSummary.productSales.length > 0" class="summary-section">
+        <h3>🏆 Top 5 Best Selling Products</h3>
+        <div class="top-products-list">
+          <div *ngFor="let product of reportsSummary.productSales.slice(0, 5); let i = index" class="product-item">
+            <span class="rank">{{ i + 1 }}.</span>
+            <span class="product-name">{{ product.productName }}</span>
+            <span class="product-stats">{{ product.totalQuantitySold }} sold • ${{ product.totalRevenue | number:'1.2-2' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- User Statistics Summary -->
+      <div *ngIf="reportsSummary.userStatistics && reportsSummary.userStatistics.length > 0" class="summary-section">
+        <h3>👥 Top Customers</h3>
+        <div class="top-users-list">
+          <div *ngFor="let user of reportsSummary.userStatistics.slice(0, 5); let i = index" class="user-item">
+            <span class="rank">{{ i + 1 }}.</span>
+            <span class="user-name">{{ user.userName }}</span>
+            <span class="user-stats">{{ user.totalOrders }} orders • ${{ user.totalSpent | number:'1.2-2' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sales Reports Tab -->
+  <div *ngIf="activeTab === 'sales'" class="tab-content">
+    <div class="filter-card">
+      <h2>💰 Sales Report Filters</h2>
+      <form [formGroup]="salesReportForm" class="filter-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="salesPeriod">Time Period</label>
+            <select id="salesPeriod" formControlName="period" class="form-control">
+              <option *ngFor="let option of salesPeriodOptions" [value]="option.value">
+                {{ option.label }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group" *ngIf="isSalesCustomRange()">
+            <label for="salesStartDate">Start Date</label>
+            <input 
+              type="datetime-local" 
+              id="salesStartDate" 
+              formControlName="startDate" 
+              class="form-control">
+          </div>
+
+          <div class="form-group" *ngIf="isSalesCustomRange()">
+            <label for="salesEndDate">End Date</label>
+            <input 
+              type="datetime-local" 
+              id="salesEndDate" 
+              formControlName="endDate" 
+              class="form-control">
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div *ngIf="salesReport" class="sales-report-container">
+      <div class="report-header">
+        <h3>📊 Sales Report: {{ salesReport.period }}</h3>
+        <p>{{ salesReport.periodStart | date:'medium' }} - {{ salesReport.periodEnd | date:'medium' }}</p>
+      </div>
+
+      <div class="summary-grid">
+        <div class="summary-card highlight-blue">
+          <div class="card-icon">📦</div>
+          <h4>Total Orders</h4>
+          <p class="summary-value">{{ salesReport.totalOrders }}</p>
+        </div>
+        <div class="summary-card highlight-green">
+          <div class="card-icon">💰</div>
+          <h4>Total Revenue</h4>
+          <p class="summary-value">${{ salesReport.totalRevenue | number:'1.2-2' }}</p>
+        </div>
+        <div class="summary-card highlight-orange">
+          <div class="card-icon">📊</div>
+          <h4>Average Order Value</h4>
+          <p class="summary-value">${{ salesReport.averageOrderValue | number:'1.2-2' }}</p>
+        </div>
+      </div>
+
+      <!-- ✅ Revenue Progress Gauge -->
+      <div class="chart-section">
+        <div class="chart-container chart-medium gauge-chart">
+          <canvas #salesOverviewChart></canvas>
+          <div class="gauge-center-text">
+            <span class="gauge-value">${{ salesReport.totalRevenue | number:'1.0-0' }}</span>
+            <span class="gauge-label">Revenue</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Products Tab -->
+  <div *ngIf="activeTab === 'products'" class="tab-content">
+    <h2>📦 Best Selling Products</h2>
+
+    <!-- ✅ NEW: Products Charts -->
+    <div *ngIf="productSalesStats.length > 0" class="charts-section">
+      <div class="charts-grid">
+        <div class="chart-card">
+          <h3>💵 Revenue by Product</h3>
+          <div class="chart-container chart-medium">
+            <canvas #productRevenueChart></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <h3>📊 Quantity Distribution</h3>
+          <div class="chart-container chart-medium">
+            <canvas #productQuantityChart></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div *ngIf="productSalesStats.length > 0" class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Product</th>
+            <th>Quantity Sold</th>
+            <th>Revenue</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of productSalesStats; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ product.productName }}</td>
+            <td>{{ product.totalQuantitySold }}</td>
+            <td>${{ product.totalRevenue | number:'1.2-2' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Users Tab -->
+  <div *ngIf="activeTab === 'users'" class="tab-content">
+    <h2>👥 User Purchase Statistics</h2>
+
+    <!-- ✅ NEW: User Charts -->
+    <div *ngIf="userStatistics.length > 0" class="charts-section">
+      <div class="charts-grid">
+        <div class="chart-card">
+          <h3>💰 Top Spenders</h3>
+          <div class="chart-container chart-medium">
+            <canvas #userSpendingChart></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <h3>🛒 Orders by User</h3>
+          <div class="chart-container chart-medium">
+            <canvas #userOrdersChart></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div *ngIf="userStatistics.length > 0" class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>User</th>
+            <th>Email</th>
+            <th>Total Orders</th>
+            <th>Total Spent</th>
+            <th>Avg. Order Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of userStatistics; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ user.userName }}</td>
+            <td>{{ user.userEmail }}</td>
+            <td>{{ user.totalOrders }}</td>
+            <td>${{ user.totalSpent | number:'1.2-2' }}</td>
+            <td>${{ user.averageOrderValue | number:'1.2-2' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Loading reports...</p>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && !hasData()" class="empty-state-container">
+    <div class="empty-state">
+      <h3>No Data Available</h3>
+      <p>No data found for the selected report type.</p>
+    </div>
+  </div>
+</div>

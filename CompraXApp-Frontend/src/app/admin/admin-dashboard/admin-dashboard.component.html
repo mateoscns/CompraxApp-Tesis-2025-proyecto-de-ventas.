@@ -1,0 +1,62 @@
+<div class="admin-dashboard">
+  <h1>Admin Dashboard</h1>
+  
+  <div *ngIf="isLoading" class="loading">
+    Loading dashboard data...
+  </div>
+
+  <div *ngIf="!isLoading" class="dashboard-content">
+    <!-- Statistics Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>Total Products</h3>
+        <p class="stat-number">{{ totalProducts }}</p>
+        <a routerLink="/admin/products" class="stat-link">Manage Products</a>
+      </div>
+      
+      <div class="stat-card">
+        <h3>Total Users</h3>
+        <p class="stat-number">{{ totalUsers }}</p>
+        <a routerLink="/admin/users" class="stat-link">Manage Users</a>
+      </div>
+      
+      <div class="stat-card">
+        <h3>Total Orders</h3>
+        <p class="stat-number">{{ totalOrders }}</p>
+        <a routerLink="/admin/orders" class="stat-link">Manage Orders</a>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <h2>Quick Actions</h2>
+      <div class="action-buttons">
+        <a routerLink="/admin/products/create" class="action-btn create-btn">
+          <span>+</span> Create New Product
+        </a>
+        <a routerLink="/admin/products" class="action-btn manage-btn">
+          📦 Manage Products
+        </a>
+        <a routerLink="/admin/orders" class="action-btn orders-btn">
+          📋 View Orders
+        </a>
+        <a routerLink="/admin/users" class="action-btn users-btn">
+          👥 Manage Users
+        </a>
+        <a routerLink="/admin/settings" class="action-btn settings-btn"> 
+          ⚙️ System Settings
+        </a>
+        <a routerLink="/admin/reports"  class="action-btn statistics-btn">
+          📊 Product Statistics
+        </a>
+         <a routerLink="/admin/promotions" class="action-btn promotions-btn">
+          <i class="fas fa-gift"></i>
+          Promotions
+        </a>
+      </div>
+    </div>
+
+    <!-- Sales Statistics -->
+    
+  </div>
+</div>

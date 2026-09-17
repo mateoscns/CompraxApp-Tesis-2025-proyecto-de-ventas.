@@ -1,0 +1,112 @@
+<div class="admin-users">
+  <!-- Header -->
+  <div class="header">
+    <h1> User Management</h1>
+  </div>
+
+  <!-- Search Section -->
+  <div class="search-section">
+    <input 
+      type="text" 
+      [(ngModel)]="searchKeyword" 
+      placeholder="🔍 Search users by email or username..."
+      class="search-input">
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading">
+    <span>Loading users...</span>
+  </div>
+
+  <!-- Users Content -->
+  <div *ngIf="!isLoading" class="users-content">
+    <!-- No Users State -->
+    <div *ngIf="users.length === 0" class="no-users">
+      <p>No users found.</p>
+    </div>
+
+    <!-- Users Table -->
+    <div *ngIf="users.length > 0" class="users-table">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>User Info</th>
+            <th>Roles</th>
+            <th>Status</th>
+            <th>Joined</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of filteredUsers" 
+              [class.current-user]="isCurrentUser(user)">
+            <td>{{ user.id }}</td>
+            
+            <!-- User Info Cell -->
+            <td>
+              <div class="user-info">
+                <strong>{{ user.name }}</strong>
+                <div class="user-email">{{ user.email }}</div>
+              </div>
+            </td>
+            
+            <!-- ✅ FIX: Roles Cell con manejo seguro -->
+            <td>
+              <div class="user-roles">
+                <span *ngFor="let role of user.roles" 
+                      class="role-badge" 
+                      [class]="getRoleClass(role)">
+                  {{ formatRole(role) }}
+                </span>
+              </div>
+            </td>
+            
+            <!-- Status Cell -->
+            <td>
+              <span [class.status-active]="user.active"
+                    [class.status-inactive]="!user.active">
+                {{ user.active ? 'Active' : 'Inactive' }}
+              </span>
+            </td>
+            
+            <!-- Date Cell -->
+            <td>
+              <span class="text-muted">N/A</span>
+            </td>
+            
+            <!-- Actions Cell -->
+            <td class="actions-cell">
+              <div class="admin-toggle" *ngIf="!isCurrentUser(user)">
+                <!-- Grant Admin Button -->
+                <button *ngIf="!hasRole(user, 'ROLE_ADMIN')" 
+                        class="btn btn-sm btn-success"
+                        (click)="grantAdminRole(user)"
+                        title="Grant Admin Access">
+                  Grant Admin
+                </button>
+                
+                <!-- Remove Admin Button -->
+                <button *ngIf="hasRole(user, 'ROLE_ADMIN')" 
+                        class="btn btn-sm btn-warning"
+                        (click)="removeAdminRole(user)"
+                        title="Remove Admin Access">
+                  Remove Admin
+                </button>
+              </div>
+              
+              <!-- Activate/Deactivate User Button -->
+              <button *ngIf="!isCurrentUser(user)"
+                      class="btn btn-sm"
+                      [ngClass]="user.active ? 'btn-danger' : 'btn-success'"
+                      (click)="toggleUserStatus(user)"
+                      [title]="user.active ? 'Deactivate User' : 'Activate User'">
+                {{ user.active ? '🚫 Deactivate' : '✅ Activate' }}
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

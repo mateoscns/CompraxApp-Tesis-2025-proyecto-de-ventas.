@@ -1,0 +1,486 @@
+<div class="manual-container">
+  <div class="manual-header">
+    <h1>📖 CompraXApp User Manual</h1>
+    <p class="manual-subtitle">Complete guide to using our e-commerce platform</p>
+    <div class="breadcrumb">
+      <a routerLink="/">Home</a> > <a routerLink="/help">Help Center</a> > <span>User Manual</span>
+    </div>
+  </div>
+
+  <div class="manual-sidebar">
+    <nav class="manual-toc">
+      <h3>📋 Table of Contents</h3>
+      <ul>
+        <li *ngFor="let section of sections">
+          <a (click)="scrollToSection(section.id)" class="toc-link">
+            <span class="toc-icon">{{ section.icon }}</span>
+            {{ section.title }}
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="manual-content">
+    <!-- Getting Started -->
+    <section class="manual-section" id="getting-started">
+      <h2>🚀 Getting Started</h2>
+      
+      <div class="step-guide">
+        <h3>Welcome to CompraXApp!</h3>
+        <p>CompraXApp is your trusted e-commerce platform for discovering and purchasing amazing products. This manual will guide you through all the features available.</p>
+        
+        <div class="feature-overview">
+          <div class="feature-card">
+            <span class="feature-icon">🛍️</span>
+            <h4>Browse Products</h4>
+            <p>Discover thousands of products across multiple categories</p>
+          </div>
+          
+          <div class="feature-card">
+            <span class="feature-icon">🛒</span>
+            <h4>Easy Shopping</h4>
+            <p>Add items to cart and checkout securely</p>
+          </div>
+          
+          <div class="feature-card">
+            <span class="feature-icon">👤</span>
+            <h4>User Accounts</h4>
+            <p>Manage your profile and order history</p>
+          </div>
+          
+          <div class="feature-card">
+            <span class="feature-icon">📱</span>
+            <h4>Mobile Friendly</h4>
+            <p>Shop seamlessly on any device</p>
+          </div>
+        </div>
+
+        <div class="step-by-step">
+          <h3>🎯 Quick Start Guide</h3>
+          <div class="steps">
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <h4>Create Your Account</h4>
+                <p>Click "Sign Up" and register with your email address to unlock all features</p>
+              </div>
+            </div>
+            
+            <div class="step">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <h4>Browse Products</h4>
+                <p>Explore our catalog using categories, search, or filters to find what you need</p>
+              </div>
+            </div>
+            
+            <div class="step">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <h4>Add to Cart</h4>
+                <p>Select products and quantities, then add them to your shopping cart</p>
+              </div>
+            </div>
+            
+            <div class="step">
+              <div class="step-number">4</div>
+              <div class="step-content">
+                <h4>Secure Checkout</h4>
+                <p>Review your order and complete payment through our secure gateway</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Browsing Products -->
+    <section class="manual-section" id="browsing">
+      <h2>🔍 Browsing Products</h2>
+      
+      <div class="subsection">
+        <h3>Product Catalog</h3>
+        <p>Our product catalog is organized to help you find exactly what you're looking for:</p>
+        
+        <div class="feature-list">
+          <div class="feature-item">
+            <h4>🏷️ Categories</h4>
+            <p>Products are organized into logical categories for easy browsing</p>
+          </div>
+          
+          <div class="feature-item">
+            <h4>🔍 Search Function</h4>
+            <p>Use the search bar to find specific products by name or keywords</p>
+          </div>
+          
+          <div class="feature-item">
+            <h4>🎛️ Filters</h4>
+            <p>Filter products by price range, category, or other attributes</p>
+          </div>
+          
+          <div class="feature-item">
+            <h4>📊 Sorting Options</h4>
+            <p>Sort by price, popularity, newest arrivals, or customer ratings</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Product Details</h3>
+        <p>Each product page includes comprehensive information:</p>
+        <ul class="info-list">
+          <li>📸 High-quality product images</li>
+          <li>📝 Detailed descriptions and specifications</li>
+          <li>💰 Clear pricing information</li>
+          <li>📦 Availability and stock status</li>
+          <li>⭐ Customer reviews and ratings</li>
+          <li>🚚 Shipping information</li>
+        </ul>
+      </div>
+
+      <div class="tip-box">
+        <h4>💡 Pro Tip</h4>
+        <p>Use the "Quick View" feature to preview product details without leaving the catalog page!</p>
+      </div>
+    </section>
+
+    <!-- Shopping Cart -->
+    <section class="manual-section" id="shopping">
+      <h2>🛒 Shopping Cart</h2>
+      
+      <div class="subsection">
+        <h3>Adding Items</h3>
+        <p>Adding products to your cart is simple:</p>
+        <ol class="instruction-list">
+          <li>Navigate to any product page</li>
+          <li>Select your desired quantity</li>
+          <li>Click the "Add to Cart" button</li>
+          <li>Confirm the item appears in your cart icon</li>
+        </ol>
+      </div>
+
+      <div class="subsection">
+        <h3>Managing Your Cart</h3>
+        <p>Your shopping cart offers full control over your selections:</p>
+        
+        <div class="cart-features">
+          <div class="cart-feature">
+            <h4>📝 Edit Quantities</h4>
+            <p>Increase or decrease item quantities using the +/- buttons</p>
+          </div>
+          
+          <div class="cart-feature">
+            <h4>🗑️ Remove Items</h4>
+            <p>Remove unwanted items with the delete button</p>
+          </div>
+          
+          <div class="cart-feature">
+            <h4>💰 Price Calculator</h4>
+            <p>See real-time totals as you make changes</p>
+          </div>
+          
+          <div class="cart-feature">
+            <h4>💾 Save for Later</h4>
+            <p>Your cart persists between sessions (when logged in)</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="warning-box">
+        <h4>⚠️ Important Note</h4>
+        <p>Items in your cart are not reserved. Popular items may sell out, so complete your purchase promptly!</p>
+      </div>
+    </section>
+
+    <!-- Checkout Process -->
+    <section class="manual-section" id="checkout">
+      <h2>💳 Checkout Process</h2>
+      
+      <div class="subsection">
+        <h3>Review Your Order</h3>
+        <p>Before completing your purchase, you'll review:</p>
+        <ul class="review-list">
+          <li>🛍️ All items in your cart</li>
+          <li>📦 Quantities and prices</li>
+          <li>🚚 Shipping costs and delivery options</li>
+          <li>💰 Total amount including taxes</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <h3>Shipping Information</h3>
+        <p>Provide accurate shipping details:</p>
+        <div class="form-guide">
+          <div class="form-field">
+            <h4>📍 Address</h4>
+            <p>Enter your complete shipping address with postal code</p>
+          </div>
+          
+          <div class="form-field">
+            <h4>📞 Contact Info</h4>
+            <p>Phone number for delivery coordination</p>
+          </div>
+          
+          <div class="form-field">
+            <h4>🚚 Delivery Options</h4>
+            <p>Choose between standard (5-7 days) or express (2-3 days) shipping</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Payment Methods</h3>
+        <p>We accept secure payments through:</p>
+        <div class="payment-methods">
+          <div class="payment-method">
+            <span class="payment-icon">💳</span>
+            <div>
+              <h4>Credit/Debit Cards</h4>
+              <p>Visa, Mastercard, American Express</p>
+            </div>
+          </div>
+          
+          <div class="payment-method">
+            <span class="payment-icon">🏦</span>
+            <div>
+              <h4>MercadoPago</h4>
+              <p>Secure payment processing</p>
+            </div>
+          </div>
+          
+          <div class="payment-method">
+            <span class="payment-icon">📱</span>
+            <div>
+              <h4>Digital Wallets</h4>
+              <p>PayPal, Apple Pay, Google Pay</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="success-box">
+        <h4>✅ Order Confirmation</h4>
+        <p>After successful payment, you'll receive an email confirmation with your order details and tracking information.</p>
+      </div>
+    </section>
+
+    <!-- Account Management -->
+    <section class="manual-section" id="account">
+      <h2>👤 Account Management</h2>
+      
+      <div class="subsection">
+        <h3>Creating an Account</h3>
+        <p>Registration is quick and unlocks additional features:</p>
+        <ol class="account-steps">
+          <li>Click "Sign Up" in the top navigation</li>
+          <li>Fill in your email and create a secure password</li>
+          <li>Verify your email address</li>
+          <li>Complete your profile information</li>
+        </ol>
+      </div>
+
+      <div class="subsection">
+        <h3>Profile Features</h3>
+        <div class="profile-features">
+          <div class="profile-feature">
+            <h4>📝 Personal Information</h4>
+            <p>Update your name, email, and contact details</p>
+          </div>
+          
+          <div class="profile-feature">
+            <h4>📍 Address Book</h4>
+            <p>Save multiple shipping addresses for faster checkout</p>
+          </div>
+          
+          <div class="profile-feature">
+            <h4>📦 Order History</h4>
+            <p>View all past orders and track current shipments</p>
+          </div>
+          
+          <div class="profile-feature">
+            <h4>🔒 Security Settings</h4>
+            <p>Change password and manage account security</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>Order Tracking</h3>
+        <p>Track your orders easily:</p>
+        <ol class="tracking-steps">
+          <li>Log into your account</li>
+          <li>Go to "Order History"</li>
+          <li>Click on any order to see detailed tracking</li>
+          <li>Get real-time updates on delivery status</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Admin Features -->
+    <section class="manual-section" id="admin">
+      <h2>⚙️ Admin Features</h2>
+      
+      <div class="admin-notice">
+        <h3>🔐 Administrator Access</h3>
+        <p>This section is only available to users with administrator privileges.</p>
+      </div>
+
+      <div class="subsection">
+        <h3>Product Management</h3>
+        <div class="admin-features">
+          <div class="admin-feature">
+            <h4>➕ Add Products</h4>
+            <p>Create new product listings with images, descriptions, and pricing</p>
+          </div>
+          
+          <div class="admin-feature">
+            <h4>✏️ Edit Products</h4>
+            <p>Update existing product information, prices, and availability</p>
+          </div>
+          
+          <div class="admin-feature">
+            <h4>📊 Inventory Management</h4>
+            <p>Monitor stock levels and manage product availability</p>
+          </div>
+          
+          <div class="admin-feature">
+            <h4>🗑️ Remove Products</h4>
+            <p>Delete discontinued or unavailable products</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3>User Management</h3>
+        <p>Administrators can:</p>
+        <ul class="admin-list">
+          <li>👥 View registered users</li>
+          <li>🔧 Manage user roles and permissions</li>
+          <li>📊 Access user activity reports</li>
+          <li>🛡️ Handle security and compliance</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <h3>Order Management</h3>
+        <p>Complete order oversight:</p>
+        <ul class="admin-list">
+          <li>📦 Process and fulfill orders</li>
+          <li>🚚 Manage shipping and tracking</li>
+          <li>💰 Handle refunds and returns</li>
+          <li>📈 Generate sales reports</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Troubleshooting -->
+    <section class="manual-section" id="troubleshooting">
+      <h2>🛠️ Troubleshooting</h2>
+      
+      <div class="troubleshooting-guide">
+        <div class="trouble-item">
+          <h3>🔐 Login Issues</h3>
+          <div class="trouble-content">
+            <h4>Problem:</h4>
+            <p>Cannot log into your account</p>
+            <h4>Solutions:</h4>
+            <ul>
+              <li>Verify your email address is correct</li>
+              <li>Try the "Forgot Password" feature</li>
+              <li>Clear your browser cookies and cache</li>
+              <li>Contact support if issues persist</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="trouble-item">
+          <h3>🛒 Cart Problems</h3>
+          <div class="trouble-content">
+            <h4>Problem:</h4>
+            <p>Items not adding to cart or cart not updating</p>
+            <h4>Solutions:</h4>
+            <ul>
+              <li>Refresh the page and try again</li>
+              <li>Ensure you're logged in</li>
+              <li>Check if the item is still in stock</li>
+              <li>Disable browser extensions temporarily</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="trouble-item">
+          <h3>💳 Payment Issues</h3>
+          <div class="trouble-content">
+            <h4>Problem:</h4>
+            <p>Payment not processing or being declined</p>
+            <h4>Solutions:</h4>
+            <ul>
+              <li>Verify your payment information is correct</li>
+              <li>Check with your bank for any holds</li>
+              <li>Try a different payment method</li>
+              <li>Ensure sufficient funds are available</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="trouble-item">
+          <h3>📱 Mobile Issues</h3>
+          <div class="trouble-content">
+            <h4>Problem:</h4>
+            <p>Site not working properly on mobile device</p>
+            <h4>Solutions:</h4>
+            <ul>
+              <li>Update your mobile browser</li>
+              <li>Clear browser data</li>
+              <li>Check your internet connection</li>
+              <li>Try using WiFi instead of mobile data</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-support">
+        <h3>📞 Still Need Help?</h3>
+        <p>If you're still experiencing issues, our support team is ready to help:</p>
+        <div class="support-options">
+          <a routerLink="/contact" class="support-option">
+            <span class="support-icon">📧</span>
+            <div>
+              <h4>Contact Form</h4>
+              <p>Send us a detailed message</p>
+            </div>
+          </a>
+          
+          <a href="mailto:support@compraxapp.com" class="support-option">
+            <span class="support-icon">✉️</span>
+            <div>
+              <h4>Email Support</h4>
+              <p></p>
+            </div>
+          </a>
+          
+          <a href="tel:+15551234567" class="support-option">
+            <span class="support-icon">📞</span>
+            <div>
+              <h4>Phone Support</h4>
+              <p>+54 351 309 1448</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <div class="manual-footer">
+      <div class="footer-content">
+        <h3>🎉 Thanks for Using CompraXApp!</h3>
+        <p>We hope this manual has been helpful. Happy shopping!</p>
+        <div class="footer-links">
+          <a routerLink="/help" class="btn btn-outline">Help Center</a>
+          <a routerLink="/contact" class="btn btn-primary">Contact Support</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

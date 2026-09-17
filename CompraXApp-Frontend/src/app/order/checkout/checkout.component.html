@@ -1,0 +1,156 @@
+<div class="checkout-container">
+  <h2>Checkout</h2>
+
+  <div *ngIf="isLoading" class="loading">
+    <p>Loading your cart...</p>
+  </div>
+
+  <div *ngIf="!isLoading && cart && hasItems()" class="checkout-content">
+    <!-- Order Summary -->
+    <div class="order-summary">
+      <h3>Order Summary</h3>
+      <div class="cart-items">
+        <!-- ✅ FIX: Agregar estructura correcta con espacios -->
+        <div class="order-item" *ngFor="let item of cart.items">
+          <div class="item-info">
+            <span class="item-name">{{ item.productName }}</span>
+            <span class="item-quantity">x{{ item.quantity }}</span>
+          </div>
+          <span class="item-price">${{ (item.quantity * item.pricePerUnit) | number:'1.2-2' }}</span>
+        </div>
+      </div>
+      <div class="total">
+        <strong>Total: ${{ getTotal() | number:'1.2-2' }}</strong>
+      </div>
+    </div>
+
+    <!-- Checkout Form -->
+    <form (ngSubmit)="placeOrder()" class="checkout-form">
+      <h3><i class="fas fa-map-marker-alt"></i> Shipping Information</h3>
+      
+      <div class="address-grid" [formGroup]="addressForm">
+        <!-- Street -->
+        <div class="form-group street-field">
+          <label for="street">Street *</label>
+          <input 
+            type="text" 
+            id="street" 
+            formControlName="street"
+            [class.error]="isAddressFieldInvalid('street')"
+            placeholder="e.g. Av. Colón">
+          <div *ngIf="isAddressFieldInvalid('street')" class="error-message">
+            Street is required
+          </div>
+        </div>
+
+        <!-- Number -->
+        <div class="form-group number-field">
+          <label for="number">Number *</label>
+          <input 
+            type="text" 
+            id="number" 
+            formControlName="number"
+            [class.error]="isAddressFieldInvalid('number')"
+            placeholder="e.g. 1234">
+          <div *ngIf="isAddressFieldInvalid('number')" class="error-message">
+            Number is required
+          </div>
+        </div>
+
+        <!-- Floor -->
+        <div class="form-group floor-field">
+          <label for="floor">Floor</label>
+          <input 
+            type="text" 
+            id="floor" 
+            formControlName="floor"
+            placeholder="e.g. 3">
+        </div>
+
+        <!-- Apartment -->
+        <div class="form-group apartment-field">
+          <label for="apartment">Apt/Unit</label>
+          <input 
+            type="text" 
+            id="apartment" 
+            formControlName="apartment"
+            placeholder="e.g. B">
+        </div>
+
+        <!-- City -->
+        <div class="form-group city-field">
+          <label for="city">City *</label>
+          <input 
+            type="text" 
+            id="city" 
+            formControlName="city"
+            [class.error]="isAddressFieldInvalid('city')"
+            placeholder="e.g. Córdoba">
+          <div *ngIf="isAddressFieldInvalid('city')" class="error-message">
+            City is required
+          </div>
+        </div>
+
+        <!-- Province -->
+        <div class="form-group province-field">
+          <label for="province">Province *</label>
+          <select 
+            id="province" 
+            formControlName="province"
+            [class.error]="isAddressFieldInvalid('province')">
+            <option value="">Select province</option>
+            <option *ngFor="let province of provinces" [value]="province">
+              {{ province }}
+            </option>
+          </select>
+          <div *ngIf="isAddressFieldInvalid('province')" class="error-message">
+            Province is required
+          </div>
+        </div>
+
+        <!-- Postal Code -->
+        <div class="form-group postal-field">
+          <label for="postalCode">Postal Code *</label>
+          <input 
+            type="text" 
+            id="postalCode" 
+            formControlName="postalCode"
+            [class.error]="isAddressFieldInvalid('postalCode')"
+            placeholder="e.g. 5000">
+          <div *ngIf="isAddressFieldInvalid('postalCode')" class="error-message">
+            Postal code is required
+          </div>
+        </div>
+
+        <!-- Additional Info -->
+        <div class="form-group additional-field">
+          <label for="additionalInfo">Additional Info</label>
+          <input 
+            type="text" 
+            id="additionalInfo" 
+            formControlName="additionalInfo"
+            placeholder="e.g. Between streets, references...">
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+
+      <button 
+        type="button"
+        (click)="placeOrder()"
+        [disabled]="addressForm.invalid || isSubmitting || !hasItems()"
+        class="btn btn-primary">
+        <span *ngIf="isSubmitting">Processing...</span>
+        <span *ngIf="!isSubmitting">Continue to Payment</span>
+      </button>
+    </form>
+  </div>
+
+  <div *ngIf="!isLoading && (!cart || !hasItems())" class="empty-cart">
+    <h3>Your cart is empty</h3>
+    <p>Add some items to your cart before proceeding to checkout.</p>
+    <a routerLink="/products" class="btn btn-primary">Continue Shopping</a>
+  </div>
+</div>

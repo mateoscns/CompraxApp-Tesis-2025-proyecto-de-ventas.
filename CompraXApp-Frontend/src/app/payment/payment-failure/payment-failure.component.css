@@ -1,0 +1,231 @@
+.payment-failure-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-6);
+}
+
+.failure-card {
+  background: white;
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-xl);
+  max-width: 600px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.failure-header {
+  background: linear-gradient(135deg, #e17055, #d63031);
+  color: white;
+  text-align: center;
+  padding: var(--spacing-8);
+}
+
+.failure-icon {
+  font-size: 4rem;
+  margin-bottom: var(--spacing-4);
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.failure-header h1 {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  margin: 0 0 var(--spacing-3) 0;
+}
+
+.failure-header p {
+  font-size: var(--font-size-base);
+  opacity: 0.9;
+  margin: 0;
+}
+
+.failure-details {
+  padding: var(--spacing-8);
+}
+
+.detail-section {
+  margin-bottom: var(--spacing-6);
+}
+
+.detail-section:last-child {
+  margin-bottom: 0;
+}
+
+.detail-section h3 {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--gray-900);
+  margin: 0 0 var(--spacing-4) 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.detail-section h3::before {
+  content: '⚠️';
+  font-size: var(--font-size-lg);
+}
+
+.error-message {
+  background: var(--danger-bg);
+  color: var(--danger-color);
+  padding: var(--spacing-4);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--danger-border);
+  margin: 0;
+  font-weight: 500;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-3) 0;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-row .label {
+  font-weight: 500;
+  color: var(--gray-700);
+}
+
+.detail-row .value {
+  font-weight: 600;
+  color: var(--gray-900);
+}
+
+.detail-row .value.error {
+  color: var(--danger-color);
+  text-transform: uppercase;
+  font-size: var(--font-size-sm);
+}
+
+.causes-list {
+  margin: 0;
+  padding-left: var(--spacing-6);
+  color: var(--gray-700);
+}
+
+.causes-list li {
+  margin-bottom: var(--spacing-2);
+  line-height: 1.5;
+}
+
+.failure-actions {
+  padding: var(--spacing-6) var(--spacing-8);
+  background: var(--gray-50);
+  border-top: 1px solid var(--gray-200);
+}
+
+.primary-actions {
+  display: flex;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-4);
+}
+
+.primary-actions .btn {
+  flex: 1;
+  justify-content: center;
+  padding: var(--spacing-4);
+  font-weight: 600;
+}
+
+.secondary-actions {
+  display: flex;
+  gap: var(--spacing-4);
+  justify-content: center;
+}
+
+.secondary-actions .btn {
+  background: none;
+  border: none;
+  color: var(--gray-600);
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+  padding: var(--spacing-2) var(--spacing-4);
+  border-radius: var(--border-radius);
+  transition: all var(--transition-fast);
+}
+
+.secondary-actions .btn:hover {
+  background: var(--gray-100);
+  color: var(--gray-800);
+}
+
+.help-section {
+  padding: var(--spacing-6) var(--spacing-8);
+  background: var(--primary-bg);
+  border-top: 1px solid var(--primary-border);
+}
+
+.help-section h3 {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--primary-color);
+  margin: 0 0 var(--spacing-3) 0;
+}
+
+.help-section p {
+  color: var(--gray-700);
+  margin: 0 0 var(--spacing-4) 0;
+  font-size: var(--font-size-sm);
+}
+
+.contact-methods {
+  display: grid;
+  gap: var(--spacing-3);
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  font-size: var(--font-size-sm);
+  color: var(--gray-700);
+}
+
+.contact-item i {
+  color: var(--primary-color);
+  width: 16px;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .payment-failure-container {
+    padding: var(--spacing-4);
+  }
+  
+  .failure-header {
+    padding: var(--spacing-6);
+  }
+  
+  .failure-details {
+    padding: var(--spacing-6);
+  }
+  
+  .primary-actions {
+    flex-direction: column;
+  }
+  
+  .secondary-actions {
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+  
+  .contact-methods {
+    gap: var(--spacing-2);
+  }
+}

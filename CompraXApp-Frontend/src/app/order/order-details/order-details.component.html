@@ -1,0 +1,137 @@
+<div class="order-details-container">
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Loading order details...</div>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="error-state">
+    <h3>Unable to load order</h3>
+    <p>{{ error }}</p>
+    <button class="action-btn primary" (click)="loadOrderDetails()">Try Again</button>
+  </div>
+
+  <!-- Order Details Content -->
+  <div *ngIf="!loading && !error && order" class="order-content">
+    
+    <!-- ✅ CORREGIR: Order Header - Solo usar createdAt -->
+    <div class="order-header">
+      <h1>Order #{{ order.id }}</h1>
+      <div class="order-date">{{ order.createdAt | date:'medium' }}</div>
+      <div class="order-status" [ngClass]="order.status.toLowerCase()">
+        {{ getStatusText(order.status) }}
+      </div>
+    </div>
+
+    <!-- ✅ CORREGIR: Grid para items y summary -->
+    <div class="content-grid">
+      <!-- Order Items -->
+      <div class="order-items">
+        <div class="order-items-header">
+          <h2>Order Items ({{ order.items.length }})</h2>
+        </div>
+        
+        <div class="order-items-list">
+          <div *ngIf="order.items && order.items.length > 0">
+            <div *ngFor="let item of order.items; trackBy: trackByItemId" class="order-item">
+              <img 
+                [src]="getProductImageUrl(item)"
+                [alt]="item.productName"
+                class="item-image"
+                (error)="onImageError($event)"
+                loading="lazy">
+              
+              <div class="item-details">
+                <div class="item-name">{{ item.productName }}</div>
+                <div class="item-quantity">Quantity: {{ item.quantity }}</div>
+                <div class="item-price">Unit Price: ${{ item.pricePerUnit | number:'1.2-2' }}</div>
+              </div>
+              
+              <div class="item-total">
+                ${{ getItemTotal(item) | number:'1.2-2' }}
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="!order.items || order.items.length === 0" class="no-items">
+            <p>No items found for this order.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="order-summary">
+        <h2>Order Summary</h2>
+        
+        <div class="summary-row">
+          <span class="summary-label">Subtotal:</span>
+          <span class="summary-value">${{ getSubtotal() | number:'1.2-2' }}</span>
+        </div>
+        
+        <div class="summary-row">
+          <span class="summary-label">Shipping:</span>
+          <span class="summary-value">Free</span>
+        </div>
+        
+        <div class="summary-row">
+          <span class="summary-label">Total:</span>
+          <span class="summary-value">${{ order.totalAmount | number:'1.2-2' }}</span>
+        </div>
+
+        <!-- Order Info -->
+        <div class="order-info">
+          <h3>Order Information</h3>
+          
+          <div class="info-row">
+            <span class="info-label">Order ID:</span>
+            <span class="info-value">{{ order.id }}</span>
+          </div>
+          
+          <div class="info-row">
+            <span class="info-label">Status:</span>
+            <span class="info-value">{{ getStatusText(order.status) }}</span>
+          </div>
+          
+          <div class="info-row">
+            <span class="info-label">Order Date:</span>
+            <!-- ✅ CORREGIR: Solo usar createdAt, no orderDate -->
+            <span class="info-value">{{ order.createdAt | date:'medium' }}</span>
+          </div>
+          
+          <div class="info-row shipping-address" *ngIf="order.shippingAddress">
+            <span class="info-label">📍 Shipping Address:</span>
+            <span class="info-value">{{ getFormattedShippingAddress() }}</span>
+          </div>
+          
+          
+        </div>
+
+        <!-- Order Actions -->
+        <div class="order-actions">
+          <button class="action-btn secondary" (click)="goBack()">
+            <i class="fas fa-arrow-left"></i>
+            Back to Orders
+          </button>
+          
+          <!-- ✅ AGREGAR: Botón para ver comprobante -->
+          <button class="action-btn info" (click)="viewReceipt()" *ngIf="canDownloadInvoice()">
+            <i class="fas fa-eye"></i>
+            Ver Comprobante
+          </button>
+          
+          <button class="action-btn primary" (click)="downloadInvoice()" *ngIf="canDownloadInvoice()">
+            <i class="fas fa-download"></i>
+            Download PDF
+          </button>
+          
+          <button class="action-btn danger" (click)="cancelOrder()" *ngIf="canCancelOrder()">
+            <i class="fas fa-times"></i>
+            Cancel Order
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

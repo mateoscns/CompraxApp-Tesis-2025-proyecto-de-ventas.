@@ -1,0 +1,183 @@
+<div class="legal-container">
+  <div class="legal-header">
+    <h1>📋 Terms of Service</h1>
+    <p class="last-updated">Last updated: {{ lastUpdated }}</p>
+    <div class="breadcrumb">
+      <a routerLink="/">Home</a> > <span>Terms of Service</span>
+    </div>
+  </div>
+
+  <div class="legal-sidebar">
+    <nav class="table-of-contents">
+      <h3>Table of Contents</h3>
+      <ul>
+        <li><a (click)="scrollToSection('acceptance')">1. Acceptance of Terms</a></li>
+        <li><a (click)="scrollToSection('description')">2. Description of Service</a></li>
+        <li><a (click)="scrollToSection('registration')">3. User Registration</a></li>
+        <li><a (click)="scrollToSection('products')">4. Products & Pricing</a></li>
+        <li><a (click)="scrollToSection('orders')">5. Orders & Payment</a></li>
+        <li><a (click)="scrollToSection('shipping')">6. Shipping & Delivery</a></li>
+        <li><a (click)="scrollToSection('returns')">7. Returns & Refunds</a></li>
+        <li><a (click)="scrollToSection('conduct')">8. User Conduct</a></li>
+        <li><a (click)="scrollToSection('privacy')">9. Privacy Policy</a></li>
+        <li><a (click)="scrollToSection('liability')">10. Limitation of Liability</a></li>
+        <li><a (click)="scrollToSection('changes')">11. Changes to Terms</a></li>
+        <li><a (click)="scrollToSection('contact')">12. Contact Information</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="legal-content">
+    <section class="legal-section" id="acceptance">
+      <h2>1. Acceptance of Terms</h2>
+      <p>
+        By accessing and using CompraXApp ("the Service"), you accept and agree to be bound by the terms and provision of this agreement. 
+        If you do not agree to abide by the above, please do not use this service.
+      </p>
+      <div class="highlight-box">
+        <strong>Important:</strong> These terms constitute a legally binding agreement between you and CompraXApp.
+      </div>
+    </section>
+
+    <section class="legal-section" id="description">
+      <h2>2. Description of Service</h2>
+      <p>CompraXApp is an e-commerce platform that allows users to:</p>
+      <ul class="feature-list">
+        <li>🛍️ Browse and search for products</li>
+        <li>🛒 Add products to shopping cart</li>
+        <li>💳 Place orders with secure payment processing</li>
+        <li>👤 Manage user accounts and order history</li>
+        <li>🎧 Receive customer support and assistance</li>
+        <li>📱 Access mobile-responsive shopping experience</li>
+      </ul>
+    </section>
+
+    <section class="legal-section" id="registration">
+      <h2>3. User Registration</h2>
+      <p>To access certain features of the Service, you must register for an account. You agree to:</p>
+      <ul>
+        <li>Provide accurate, current, and complete information</li>
+        <li>Maintain and update your information promptly</li>
+        <li>Keep your password secure and confidential</li>
+        <li>Be responsible for all activities under your account</li>
+        <li>Notify us immediately of any unauthorized use</li>
+      </ul>
+    </section>
+
+    <section class="legal-section" id="products">
+      <h2>4. Product Information and Pricing</h2>
+      <p>We strive to provide accurate product descriptions and pricing. However:</p>
+      <ul>
+        <li>Product images may vary slightly from actual products</li>
+        <li>Prices are subject to change without notice</li>
+        <li>Product availability is not guaranteed</li>
+        <li>We reserve the right to correct pricing errors</li>
+        <li>All prices are listed in ARS unless otherwise specified</li>
+      </ul>
+    </section>
+
+    <section class="legal-section" id="orders">
+      <h2>5. Orders and Payment</h2>
+      <p>When placing an order:</p>
+      <ul>
+        <li>You confirm that all order information is accurate</li>
+        <li>Payment is processed securely through MercadoPago o WhatsApp</li>
+        <li>Orders are subject to availability and confirmation</li>
+        <li>We reserve the right to cancel orders for any reason</li>
+        <li>You will receive email confirmation for all orders</li>
+      </ul>
+      <div class="payment-methods">
+        <h4>Accepted Payment Methods:</h4>
+        <p>💳 Credit Cards • 🏦 Debit Cards • 📱 Digital Wallets</p>
+      </div>
+    </section>
+
+    <section class="legal-section" id="shipping">
+      <h2>6. Shipping and Delivery</h2>
+      <p>Shipping terms:</p>
+      <ul>
+        <li>Delivery times are estimates and not guaranteed</li>
+        <li>Shipping costs may apply based on location and order value</li>
+        <li>Risk of loss transfers to customer upon delivery</li>
+        <li>Damaged or lost packages should be reported within 48 hours</li>
+        <li>International shipping may be subject to customs fees</li>
+      </ul>
+    </section>
+
+    <section class="legal-section" id="returns">
+      <h2>7. Returns and Refunds</h2>
+      <p>Our return policy:</p>
+      <ul>
+        <li>Returns accepted within 30 days of delivery</li>
+        <li>Items must be in original condition with tags</li>
+        <li>Customer responsible for return shipping costs</li>
+        <li>Refunds processed within 5-10 business days</li>
+        <li>Digital products are non-refundable</li>
+      </ul>
+    </section>
+
+    <section class="legal-section" id="conduct">
+      <h2>8. User Conduct</h2>
+      <p>You agree not to:</p>
+      <ul>
+        <li>Use the service for illegal or unauthorized purposes</li>
+        <li>Interfere with the service or servers</li>
+        <li>Create multiple accounts to circumvent restrictions</li>
+        <li>Violate any applicable laws or regulations</li>
+        <li>Post harmful, offensive, or inappropriate content</li>
+      </ul>
+    </section>
+
+    <section class="legal-section" id="privacy">
+      <h2>9. Privacy Policy</h2>
+      <p>
+        Your privacy is important to us. We collect and use information as described in our 
+        <a routerLink="/privacy" class="link">Privacy Policy</a>, which is incorporated into these Terms by reference.
+      </p>
+    </section>
+
+    <section class="legal-section" id="liability">
+      <h2>10. Limitation of Liability</h2>
+      <p>
+        CompraXApp shall not be liable for any indirect, incidental, special, consequential, or punitive damages, 
+        including without limitation, loss of profits, data, use, goodwill, or other intangible losses.
+      </p>
+    </section>
+
+    <section class="legal-section" id="changes">
+      <h2>11. Changes to Terms</h2>
+      <p>
+        We reserve the right to modify these terms at any time. Changes will be effective immediately upon posting. 
+        Your continued use of the service constitutes acceptance of the modified terms.
+      </p>
+    </section>
+
+    <section class="legal-section" id="contact">
+      <h2>12. Contact Information</h2>
+      <p>For questions about these Terms of Service, please contact us at:</p>
+      <div class="contact-info">
+        <div class="contact-item">
+          <strong>📧 Email:</strong> <a href="mailto:support@compraxapp.com"></a>
+        </div>
+        <div class="contact-item">
+          <strong>📞 Phone:</strong> <a href="tel:+15551234567">+54 351 309 1448</a>
+        </div>
+        <div class="contact-item">
+          <strong>📍 Address:</strong> Cordoba, Argentina
+        </div>
+        <div class="contact-item">
+          <strong>🕒 Business Hours:</strong> Monday - Friday, 9:00 AM - 6:00 PM 
+        </div>
+      </div>
+    </section>
+
+    <div class="legal-footer">
+      <p>Thank you for using CompraXApp! 🛍️</p>
+      <div class="footer-links">
+        <a routerLink="/privacy" class="btn btn-outline">Privacy Policy</a>
+        <a routerLink="/help" class="btn btn-outline">Help Center</a>
+        <a routerLink="/contact" class="btn btn-primary">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</div>

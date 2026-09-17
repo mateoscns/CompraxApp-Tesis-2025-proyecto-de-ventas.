@@ -1,0 +1,203 @@
+<div class="contact-page">
+  <!-- Hero Section -->
+  <div class="contact-hero">
+    <div class="hero-content">
+      <h1>📧 Contact Us</h1>
+      <p>We're here to help! Get in touch with our support team</p>
+    </div>
+  </div>
+
+  <div class="contact-container">
+    <!-- Contact Methods -->
+    <div class="contact-methods">
+      <h2>How would you like to reach us?</h2>
+      <div class="methods-grid">
+        <div *ngFor="let method of contactMethods" class="method-card">
+          <div class="method-icon">{{ method.icon }}</div>
+          <div class="method-content">
+            <h3>{{ method.title }}</h3>
+            <p>{{ method.description }}</p>
+            <a [href]="method.link" class="method-contact" 
+               [class.chat-link]="method.title === 'Live Chat'"
+               (click)="method.title === 'Live Chat' ? openLiveChat() : null">
+              {{ method.contact }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="contact-form-section">
+      <div class="form-header">
+        <h2>💬 Send us a Message</h2>
+        <p>Fill out the form below and we'll get back to you as soon as possible</p>
+      </div>
+
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form" novalidate>
+        <!-- Personal Information -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Full Name *</label>
+            <input 
+              type="text" 
+              id="name" 
+              formControlName="name"
+              placeholder="Your full name"
+              [class.error]="isFieldInvalid('name')">
+            <div *ngIf="isFieldInvalid('name')" class="error-message">
+              {{ getFieldError('name') }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input 
+              type="email" 
+              id="email" 
+              formControlName="email"
+              placeholder="your@email.com"
+              [class.error]="isFieldInvalid('email')">
+            <div *ngIf="isFieldInvalid('email')" class="error-message">
+              {{ getFieldError('email') }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Subject and Category -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="subject">Subject *</label>
+            <input 
+              type="text" 
+              id="subject" 
+              formControlName="subject"
+              placeholder="Brief description of your inquiry"
+              [class.error]="isFieldInvalid('subject')">
+            <div *ngIf="isFieldInvalid('subject')" class="error-message">
+              {{ getFieldError('subject') }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="category">Category *</label>
+            <select 
+              id="category" 
+              formControlName="category"
+              [class.error]="isFieldInvalid('category')">
+              <option value="general">General Inquiry</option>
+              <option value="order">Order Support</option>
+              <option value="shipping">Shipping Issues</option>
+              <option value="returns">Returns & Refunds</option>
+              <option value="technical">Technical Support</option>
+              <option value="billing">Billing Questions</option>
+              <option value="feedback">Feedback & Suggestions</option>
+            </select>
+            <div *ngIf="isFieldInvalid('category')" class="error-message">
+              {{ getFieldError('category') }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Priority -->
+        <div class="form-group">
+          <label for="priority">Priority Level</label>
+          <select id="priority" formControlName="priority">
+            <option value="low">Low - General Question</option>
+            <option value="normal">Normal - Standard Support</option>
+            <option value="high">High - Urgent Issue</option>
+            <option value="critical">Critical - Account/Order Problem</option>
+          </select>
+        </div>
+
+        <!-- Message -->
+        <div class="form-group">
+          <label for="message">Message *</label>
+          <textarea 
+            id="message" 
+            formControlName="message"
+            placeholder="Please provide as much detail as possible..."
+            rows="6"
+            [class.error]="isFieldInvalid('message')"></textarea>
+          <div class="character-count">
+            {{ contactForm.get('message')?.value?.length || 0 }}/1000 characters
+          </div>
+          <div *ngIf="isFieldInvalid('message')" class="error-message">
+            {{ getFieldError('message') }}
+          </div>
+        </div>
+
+        <!-- Newsletter Subscription -->
+        <div class="form-group checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" formControlName="newsletter">
+            <span class="checkmark"></span>
+            📰 Subscribe to our newsletter for updates and promotions
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-actions">
+          <button 
+            type="submit" 
+            class="submit-btn"
+            [disabled]="contactForm.invalid || isSubmitting">
+            <span *ngIf="!isSubmitting">📨 Send Message</span>
+            <span *ngIf="isSubmitting">📤 Sending...</span>
+          </button>
+        </div>
+
+        <!-- Messages -->
+        <div *ngIf="successMessage" class="alert alert-success">
+          {{ successMessage }}
+        </div>
+
+        <div *ngIf="errorMessage" class="alert alert-error">
+          {{ errorMessage }}
+        </div>
+      </form>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="faq-section">
+      <h2>❓ Frequently Asked Questions</h2>
+      <p>Check out these common questions before sending a message</p>
+      
+      <div class="faq-list">
+        <div *ngFor="let faq of faqItems" class="faq-item">
+          <div class="faq-question">
+            <span class="faq-icon">❓</span>
+            {{ faq.question }}
+          </div>
+          <div class="faq-answer">
+            {{ faq.answer }}
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-footer">
+        <p>Still have questions? <a routerLink="/help">Visit our Help Center</a> for more information.</p>
+      </div>
+    </div>
+
+    <!-- Business Hours -->
+    <div class="business-hours">
+      <h3>🕒 Business Hours</h3>
+      <div class="hours-grid">
+        <div class="hours-item">
+          <span class="day">Monday - Friday</span>
+          <span class="time">9:00 AM - 6:00 PM</span>
+        </div>
+        <div class="hours-item">
+          <span class="day">Saturday</span>
+          <span class="time">10:00 AM - 4:00 PM</span>
+        </div>
+        <div class="hours-item">
+          <span class="day">Sunday</span>
+          <span class="time">Closed</span>
+        </div>
+      </div>
+      <p class="hours-note">All times are in Argentina Standard Time (ART)</p>
+    </div>
+  </div>
+</div>
